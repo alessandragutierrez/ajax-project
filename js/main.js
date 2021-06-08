@@ -48,15 +48,15 @@ function renderMovie(movie) {
   $yearDiv.className = 'padding-bottom';
   var $yearLabel = document.createElement('span');
   $yearLabel.className = 'weight-600';
-  $yearLabel.textContent = 'Year:';
+  $yearLabel.textContent = 'Year: ';
   var $yearContent = document.createElement('span');
-  $yearContent.textContent = movie.release_date;
+  $yearContent.textContent = findYear(movie.release_date);
 
   var $ratingDiv = document.createElement('div');
   $ratingDiv.className = 'padding-bottom';
   var $ratingLabel = document.createElement('span');
   $ratingLabel.className = 'weight-600';
-  $ratingLabel.textContent = 'Rating:';
+  $ratingLabel.textContent = 'Rating: ';
   var $ratingContent = document.createElement('span');
   $ratingContent.textContent = movie.vote_average;
 
@@ -64,7 +64,7 @@ function renderMovie(movie) {
   $genreDiv.className = 'padding-bottom';
   var $genreLabel = document.createElement('span');
   $genreLabel.className = 'weight-600';
-  $genreLabel.textContent = 'Genre:';
+  $genreLabel.textContent = 'Genre: ';
   var $genreContent = document.createElement('span');
   $genreContent.textContent = movie.genre_ids;
 
@@ -87,4 +87,12 @@ function renderMovie(movie) {
   $genreDiv.appendChild($genreContent);
   $movieDesc.appendChild($plotSummary);
   return $container;
+}
+
+function findYear(movie) {
+  var year = '';
+  for (var i = 0; i < 4; i++) {
+    year += movie.charAt(i);
+  }
+  return year;
 }
