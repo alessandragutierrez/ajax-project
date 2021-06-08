@@ -1,25 +1,33 @@
-.nav-bar {
+header {
   background-color: #343434;
+}
+
+main {
+  background-color: black;
+}
+
+.container {
+  background-color: white;
+}
+
+.nav-bar {
+  padding: 0 2.5rem;
 }
 
 .home-button,
 .watchlist-button {
   display: inline-block;
   margin: 0.7rem 0;
-  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .home-button {
   text-decoration: underline;
 }
 
-.home-container {
-  background-color: black;
-  height: 100vh;
-}
-
 .roulette-title {
   padding: 1rem 0;
+  font-size: 2rem;
 }
 
 .spin-wheel-container {
@@ -29,7 +37,6 @@
 .spin-wheel-button {
   background-color: white;
   border: none;
-  border-radius: 5px;
   font-size: 1.3rem;
   padding: 8px 30px;
 }
@@ -43,9 +50,12 @@
   font-weight: 100;
 }
 
-.center {
-  text-align: center;
-  justify-content: center;
+.weight-500 {
+  font-weight: 500;
+}
+
+.weight-600 {
+  font-weight: 600;
 }
 
 .amaranth {
@@ -54,6 +64,19 @@
 
 .amiko {
   font-family: 'Amiko', sans-serif;
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+.padding-bottom {
+  padding-bottom: 5px;
 }
 
 .home-button:hover,
