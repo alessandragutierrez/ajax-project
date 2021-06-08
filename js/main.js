@@ -41,7 +41,7 @@ function renderMovie(movie) {
   $img.setAttribute('src', 'https://image.tmdb.org/t/p/original' + movie.poster_path);
 
   var $movieTitle = document.createElement('h1');
-  $movieTitle.className = 'weight 500 padding-bottom';
+  $movieTitle.className = 'weight-500 padding-bottom';
   $movieTitle.textContent = movie.title;
 
   var $yearDiv = document.createElement('div');
@@ -66,7 +66,7 @@ function renderMovie(movie) {
   $genreLabel.className = 'weight-600';
   $genreLabel.textContent = 'Genre: ';
   var $genreContent = document.createElement('span');
-  $genreContent.textContent = movie.genre_ids;
+  $genreContent.textContent = findGenre(movie.genre_ids);
 
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
@@ -118,3 +118,22 @@ var genres = [
   { id: 10752, name: 'War' },
   { id: 37, name: 'Western' }
 ];
+
+function findGenre(movie) {
+  var movieGenres = '';
+  for (var i = 0; i < movie.length - 1; i++) {
+    var genreID = movie[i];
+    for (var j = 0; j < genres.length; j++) {
+      if (genreID === genres[j].id) {
+        movieGenres += genres[j].name + '/';
+      }
+    }
+  }
+  genreID = movie[movie.length - 1];
+  for (var k = 0; k < genres.length; k++) {
+    if (genreID === genres[k].id) {
+      movieGenres += genres[k].name;
+    }
+  }
+  return movieGenres;
+}
