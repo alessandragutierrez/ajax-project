@@ -17,10 +17,8 @@ function requestMovie() {
     // console.log(xhr.response);
     movieResultArray = xhr.response.results;
     // console.log(movieResultArray);
-    for (var i = 0; i < movieResultArray.length; i++) {
-      var newMovie = renderMovie(movieResultArray[i]);
-      $movieResultContainer.appendChild(newMovie);
-    }
+    var newMovie = renderMovie(movieResultArray[0]);
+    $movieResultContainer.appendChild(newMovie);
   });
   xhr.send();
 }
