@@ -37,7 +37,7 @@ img {
   width: 250px;
 }
 
-.movie-container {
+.movie {
   padding: 20px 0;
 }
 
@@ -61,7 +61,7 @@ img {
     width: 350px;
   }
 
-  .movie-container {
+  .movie {
     padding: 50px 0;
   }
 
