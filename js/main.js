@@ -1,18 +1,21 @@
 /* global genres */
 
-var $spinWheel = document.querySelector('.spin-wheel-button');
-var $movieResultContainer = document.querySelector('.movie-container');
 var $homeView = document.querySelector('#home');
 var $resultView = document.querySelector('#result');
+var $spin = document.querySelector('.spin-wheel-button');
+var $spinAgain = document.querySelector('.spin-again-button');
+var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 
-$spinWheel.addEventListener('click', getMovie);
+$spin.addEventListener('click', getMovie);
 
 function getMovie(event) {
   requestMovie();
   $homeView.classList.add('hidden');
   $resultView.classList.remove('hidden');
 }
+
+$spinAgain.addEventListener('click', function () {});
 
 function requestMovie() {
   var xhr = new XMLHttpRequest();
