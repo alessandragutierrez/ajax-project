@@ -8,11 +8,25 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="row nav-bar">
+    <div class="column-full">
+      <h3 class="home-button white uppercase amaranth">Home</h3>
+      <h3 class="watchlist-button white uppercase amaranth">Watchlist</h3>
+    </div>
   </header>
   <main>
+    <div data-view="home" class="container home-container">
+      <div class="row center">
+        <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
+      </div>
+      <div class="row center spin-wheel-container">
+        <button class="uppercase amiko spin-wheel-button">Spin The Wheel</button>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
