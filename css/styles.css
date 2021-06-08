@@ -31,14 +31,30 @@ main {
 }
 
 .spin-wheel-container {
-  margin: 10rem 0;
+  margin: 10rem auto;
+}
+
+.spin-wheel-button,
+.spin-again-button {
+  border: none;
+  font-size: 1.3rem;
+  width: 250px;
+  padding: 8px 0;
 }
 
 .spin-wheel-button {
   background-color: white;
-  border: none;
-  font-size: 1.3rem;
-  padding: 8px 30px;
+}
+
+.spin-again-button {
+  background-color: black;
+}
+
+.home-button:hover,
+.watchlist-button:hover,
+.spin-wheel-button:hover,
+.spin-again-button:hover {
+  cursor: pointer;
 }
 
 .white {
@@ -77,10 +93,4 @@ main {
 
 .padding-bottom {
   padding-bottom: 5px;
-}
-
-.home-button:hover,
-.watchlist-button:hover,
-.spin-wheel-button:hover {
-  cursor: pointer;
 }

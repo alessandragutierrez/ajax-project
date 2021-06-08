@@ -1,8 +1,9 @@
 /* global genres */
 
 var $spinWheel = document.querySelector('.spin-wheel-button');
-var $movieResultContainer = document.querySelector('#result');
+var $movieResultContainer = document.querySelector('.movie-container');
 var $homeView = document.querySelector('#home');
+var $resultView = document.querySelector('#result');
 var movieResultArray = [];
 
 $spinWheel.addEventListener('click', getMovie);
@@ -10,7 +11,7 @@ $spinWheel.addEventListener('click', getMovie);
 function getMovie(event) {
   requestMovie();
   $homeView.classList.add('hidden');
-  $movieResultContainer.classList.remove('hidden');
+  $resultView.classList.remove('hidden');
 }
 
 function requestMovie() {
@@ -23,15 +24,12 @@ function requestMovie() {
     movieResultArray = xhr.response.results;
     // console.log(movieResultArray);
     var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
-    $movieResultContainer.appendChild(newMovie);
+    $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
 }
 
 function renderMovie(movie) {
-  var $container = document.createElement('div');
-  $container.className = 'container';
-
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
 
@@ -76,7 +74,6 @@ function renderMovie(movie) {
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
 
-  $container.appendChild($movie);
   $movie.appendChild($imgDiv);
   $movie.appendChild($movieDesc);
   $imgDiv.appendChild($img);
@@ -91,7 +88,7 @@ function renderMovie(movie) {
   $genreDiv.appendChild($genreLabel);
   $genreDiv.appendChild($genreContent);
   $movieDesc.appendChild($plotSummary);
-  return $container;
+  return $movie;
 }
 
 function findYear(movie) {
