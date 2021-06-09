@@ -8,11 +8,38 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
+    <div class="row nav-bar">
+      <h3 class="home-button white uppercase amaranth">Home</h3>
+      <h3 class="watchlist-button white uppercase amaranth">Watchlist</h3>
+    </div>
   </header>
   <main>
+    <div data-view="home" id="home" class="">
+      <div class="row center">
+        <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
+      </div>
+      <div class="row center spin-wheel-container">
+        <button class="uppercase amiko border-radius spin-wheel-button">Spin The Wheel</button>
+      </div>
+    </div>
+    <div data-view="result" id="result" class="hidden">
+      <div class="row center">
+        <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
+      </div>
+      <div class="container movie-container">
+        <div class="row center">
+          <div class="column-half">
+            <button class="uppercase white amiko border-radius spin-again-button">Spin Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

@@ -1,0 +1,96 @@
+header {
+  background-color: #343434;
+}
+
+main {
+  background-color: black;
+}
+
+.container {
+  background-color: white;
+}
+
+.nav-bar {
+  padding: 0 2.5rem;
+}
+
+.home-button,
+.watchlist-button {
+  display: inline-block;
+  margin: 0.7rem 0;
+  padding-right: 2.5rem;
+}
+
+.home-button {
+  text-decoration: underline;
+}
+
+.roulette-title {
+  padding: 1rem 0;
+  font-size: 2rem;
+}
+
+.spin-wheel-container {
+  margin: 10rem auto;
+}
+
+.spin-wheel-button,
+.spin-again-button {
+  border: none;
+  font-size: 1.3rem;
+  width: 250px;
+  padding: 8px 0;
+}
+
+.spin-wheel-button {
+  background-color: white;
+}
+
+.spin-again-button {
+  background-color: black;
+}
+
+.home-button:hover,
+.watchlist-button:hover,
+.spin-wheel-button:hover,
+.spin-again-button:hover {
+  cursor: pointer;
+}
+
+.white {
+  color: white;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+.weight-500 {
+  font-weight: 500;
+}
+
+.weight-600 {
+  font-weight: 600;
+}
+
+.amaranth {
+  font-family: 'Amaranth', sans-serif;
+}
+
+.amiko {
+  font-family: 'Amiko', sans-serif;
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+.padding-bottom {
+  padding-bottom: 5px;
+}
