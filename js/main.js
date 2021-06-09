@@ -2,18 +2,26 @@
 
 var $homeView = document.querySelector('#home');
 var $resultView = document.querySelector('#result');
+var $filterForm = document.querySelector('.filter-form');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
+var filterYear;
 
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
+
+function saveFormValues() {
+  filterYear = $filterForm.elements.year.value;
+  return filterYear;
+}
 
 function getMovie(event) {
   requestInitalMovie();
   $homeView.classList.add('hidden');
   $resultView.classList.remove('hidden');
+  saveFormValues();
 }
 
 function getMoreMovies(event) {
