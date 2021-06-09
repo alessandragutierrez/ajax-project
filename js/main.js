@@ -162,6 +162,7 @@ function saveFormValues() {
 
 function clearForm() {
   $filterForm.elements.year.value = '';
+  $filterForm.elements.genre.value = '';
 }
 
 function clearResult() {
