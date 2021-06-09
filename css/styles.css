@@ -71,6 +71,7 @@ input:focus {
 .spin-again-button,
 .add-button {
   background-color: black;
+  margin-bottom: 1.5rem;
 }
 
 .home-button:hover,

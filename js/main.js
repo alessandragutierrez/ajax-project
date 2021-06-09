@@ -9,6 +9,7 @@ var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 var formValues = {};
+var currentMovie = {};
 
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
@@ -46,7 +47,9 @@ function requestInitalMovie() {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
-    var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
+    var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
+    var newMovie = renderMovie(randomMovie);
+    storeCurrentMovie(randomMovie);
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
@@ -66,11 +69,22 @@ function requestMoreMovies() {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
-    var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
+    var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
+    var newMovie = renderMovie(randomMovie);
+    storeCurrentMovie(randomMovie);
     clearResult();
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
+}
+
+function storeCurrentMovie(movie) {
+  currentMovie.poster = movie.poster_path;
+  currentMovie.title = movie.title;
+  currentMovie.year = movie.release_date;
+  currentMovie.rating = movie.vote_average;
+  currentMovie.genreIds = movie.genre_ids;
+  currentMovie.plot = movie.overview;
 }
 
 function renderMovie(movie) {
