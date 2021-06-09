@@ -8,24 +8,36 @@ var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 
 $spin.addEventListener('click', getMovie);
+$spinAgain.addEventListener('click', getMoreMovies);
 
 function getMovie(event) {
-  requestMovie();
+  requestInitalMovie();
   $homeView.classList.add('hidden');
   $resultView.classList.remove('hidden');
 }
 
-$spinAgain.addEventListener('click', function () {});
+function getMoreMovies(event) {
+  requestMoreMovies();
+}
 
-function requestMovie() {
+function requestInitalMovie() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.status);
-    // console.log(xhr.response);
     movieResultArray = xhr.response.results;
-    // console.log(movieResultArray);
+    var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
+    $movieResultContainer.prepend(newMovie);
+  });
+  xhr.send();
+}
+
+function requestMoreMovies() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    movieResultArray = xhr.response.results;
     var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
     $movieResultContainer.prepend(newMovie);
   });
