@@ -15,7 +15,7 @@
 <body>
   <header>
     <div class="row nav-bar">
-      <h3 class="home-button white uppercase amaranth">Home</h3>
+      <h3 class="home-button white uppercase amaranth underline">Home</h3>
       <h3 class="watchlist-button white uppercase amaranth">Watchlist</h3>
     </div>
   </header>
@@ -24,6 +24,12 @@
       <div class="row center">
         <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
       </div>
+      <form class="filter-form">
+        <h3 class="white uppercase center amaranth form-title">Filter Results</h3>
+        <label for="year" class="white uppercase amaranth">Release Year</label>
+        <br>
+        <input type="number" id="year" name="year" minlength="4" maxlength="4" placeholder="2021" class="white">
+      </form>
       <div class="row center spin-wheel-container">
         <button class="uppercase amiko border-radius spin-wheel-button">Spin The Wheel</button>
       </div>

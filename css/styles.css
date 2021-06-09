@@ -21,17 +21,38 @@ main {
   padding-right: 2.5rem;
 }
 
-.home-button {
+.underline {
   text-decoration: underline;
 }
 
 .roulette-title {
-  padding: 1rem 0;
+  margin: 1rem 0;
   font-size: 2rem;
 }
 
-.spin-wheel-container {
-  margin: 10rem auto;
+.filter-form {
+  margin: 3rem auto;
+}
+
+.form-title {
+  margin-bottom: 2rem;
+}
+
+label {
+  padding-left: 10px;
+}
+
+input {
+  background-color: #343434;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+input:focus {
+  outline-color: white;
 }
 
 .spin-wheel-button,
