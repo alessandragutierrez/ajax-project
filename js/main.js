@@ -213,6 +213,6 @@ function titleCase(string) {
 $addButton.addEventListener('click', saveCurrentMovie);
 
 function saveCurrentMovie(event) {
-  data.push(currentMovie);
+  data.entries.push(currentMovie);
   currentMovie = {};
 }
