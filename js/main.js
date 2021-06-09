@@ -2,6 +2,7 @@
 
 var $homeView = document.querySelector('#home');
 var $resultView = document.querySelector('#result');
+var $homeButton = document.querySelector('.home-button');
 var $filterForm = document.querySelector('.filter-form');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
@@ -11,6 +12,7 @@ var filterYear;
 
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
+$homeButton.addEventListener('click', goHome);
 
 function getMovie(event) {
   saveFormValues();
@@ -22,6 +24,12 @@ function getMovie(event) {
 
 function getMoreMovies(event) {
   requestMoreMovies();
+}
+
+function goHome(event) {
+  $resultView.classList.add('hidden');
+  $homeView.classList.remove('hidden');
+  clearResult();
 }
 
 function requestInitalMovie() {
@@ -51,19 +59,10 @@ function requestMoreMovies() {
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
     var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
-    $movieResultContainer.firstElementChild.remove();
+    clearResult();
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
-}
-
-function saveFormValues() {
-  filterYear = $filterForm.elements.year.value;
-  return filterYear;
-}
-
-function clearForm() {
-  $filterForm.elements.year.value = '';
 }
 
 function renderMovie(movie) {
@@ -153,4 +152,17 @@ function findGenre(movie) {
     }
   }
   return movieGenres;
+}
+
+function saveFormValues() {
+  filterYear = $filterForm.elements.year.value;
+  return filterYear;
+}
+
+function clearForm() {
+  $filterForm.elements.year.value = '';
+}
+
+function clearResult() {
+  $movieResultContainer.firstElementChild.remove();
 }
