@@ -39,6 +39,7 @@ function requestMoreMovies() {
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
     var newMovie = renderMovie(movieResultArray[Math.floor(Math.random() * 20)]);
+    $movieResultContainer.firstElementChild.remove();
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
