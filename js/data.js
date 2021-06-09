@@ -2,6 +2,8 @@
 /* exported genres */
 
 var data = {
+  view: 'home',
+  currentMovie: {},
   entries: []
 };
 

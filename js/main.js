@@ -1,7 +1,6 @@
 /* global genres */
 
-var $homeView = document.querySelector('#home');
-var $resultView = document.querySelector('#result');
+var $viewElements = document.querySelectorAll('.view');
 var $homeButton = document.querySelector('.home-button');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
@@ -10,28 +9,31 @@ var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 var formValues = {};
-var currentMovie = {};
 
+$homeButton.addEventListener('click', goHome);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
-$homeButton.addEventListener('click', goHome);
+$addButton.addEventListener('click', saveCurrentMovie);
+
+function goHome(event) {
+  swapViews('home');
+  clearResult();
+}
 
 function getMovie(event) {
   saveFormValues();
   clearForm();
   requestInitalMovie();
-  $homeView.classList.add('hidden');
-  $resultView.classList.remove('hidden');
+  swapViews('result');
 }
 
 function getMoreMovies(event) {
   requestMoreMovies();
 }
 
-function goHome(event) {
-  $resultView.classList.add('hidden');
-  $homeView.classList.remove('hidden');
-  clearResult();
+function saveCurrentMovie(event) {
+  data.entries.push(data.currentMovie);
+  data.currentMovie = {};
 }
 
 function requestInitalMovie() {
@@ -51,6 +53,7 @@ function requestInitalMovie() {
     var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
     storeCurrentMovie(randomMovie);
     var newMovie = renderMovie(randomMovie);
+    clearResult();
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
@@ -80,13 +83,13 @@ function requestMoreMovies() {
 }
 
 function storeCurrentMovie(movie) {
-  currentMovie.id = movie.id;
-  currentMovie.poster = movie.poster_path;
-  currentMovie.title = movie.title;
-  currentMovie.year = movie.release_date;
-  currentMovie.rating = movie.vote_average;
-  currentMovie.genreIds = movie.genre_ids;
-  currentMovie.plot = movie.overview;
+  data.currentMovie.id = movie.id;
+  data.currentMovie.poster_path = movie.poster_path;
+  data.currentMovie.title = movie.title;
+  data.currentMovie.release_date = movie.release_date;
+  data.currentMovie.vote_average = movie.vote_average;
+  data.currentMovie.genre_ids = movie.genre_ids;
+  data.currentMovie.overview = movie.overview;
 }
 
 function renderMovie(movie) {
@@ -202,6 +205,9 @@ function clearForm() {
 }
 
 function clearResult() {
+  if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
+    return;
+  }
   $movieResultContainer.firstElementChild.remove();
 }
 
@@ -210,9 +216,13 @@ function titleCase(string) {
   return titleCase;
 }
 
-$addButton.addEventListener('click', saveCurrentMovie);
-
-function saveCurrentMovie(event) {
-  data.entries.push(currentMovie);
-  currentMovie = {};
+function swapViews(view) {
+  for (var i = 0; i < $viewElements.length; i++) {
+    if ($viewElements[i].getAttribute('data-view') !== view) {
+      $viewElements[i].classList.add('hidden');
+    } else {
+      $viewElements[i].classList.remove('hidden');
+      data.view = view;
+    }
+  }
 }
