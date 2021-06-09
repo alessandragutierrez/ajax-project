@@ -27,10 +27,18 @@ img {
   padding: 0 10px;
 }
 
+input {
+  width: 100%;
+}
+
 /* mobile view */
 .column-full,
 .column-half {
   width: 100%;
+}
+
+.filter-form {
+  width: 325px;
 }
 
 .img-div {
@@ -67,5 +75,9 @@ img {
 
   .movie-desc {
     padding: 0 30px;
+  }
+
+  .filter-form {
+    width: 400px;
   }
 }
