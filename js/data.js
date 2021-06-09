@@ -1,6 +1,8 @@
 /* exported data */
 /* exported genres */
 
+var data = [];
+
 var genres = [
   { id: 28, name: 'Action' },
   { id: 12, name: 'Adventure' },

@@ -80,6 +80,7 @@ function requestMoreMovies() {
 }
 
 function storeCurrentMovie(movie) {
+  currentMovie.id = movie.id;
   currentMovie.poster = movie.poster_path;
   currentMovie.title = movie.title;
   currentMovie.year = movie.release_date;
@@ -209,4 +210,9 @@ function titleCase(string) {
   return titleCase;
 }
 
-$addButton.addEventListener('click', function () {});
+$addButton.addEventListener('click', saveCurrentMovie);
+
+function saveCurrentMovie(event) {
+  data.push(currentMovie);
+  currentMovie = {};
+}
