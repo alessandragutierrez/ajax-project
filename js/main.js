@@ -36,6 +36,8 @@ function requestInitalMovie() {
   var xhr = new XMLHttpRequest();
   if (formValues.filterYear !== '') {
     xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
+  } else if (formValues.filterGenre !== '') {
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
     xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate');
   }
@@ -157,7 +159,19 @@ function findGenre(movie) {
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
   formValues.filterGenre = $filterForm.elements.genre.value;
+  formValues.filterGenreId = findFilterGenre();
   return formValues;
+}
+
+function findFilterGenre() {
+  var filterGenre = titleCase($filterForm.elements.genre.value);
+  var filterGenreId;
+  for (var i = 0; i < genres.length; i++) {
+    if (filterGenre === genres[i].name) {
+      filterGenreId = genres[i].id;
+    }
+  }
+  return filterGenreId;
 }
 
 function clearForm() {
@@ -167,4 +181,9 @@ function clearForm() {
 
 function clearResult() {
   $movieResultContainer.firstElementChild.remove();
+}
+
+function titleCase(string) {
+  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  return titleCase;
 }
