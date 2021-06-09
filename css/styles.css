@@ -56,25 +56,29 @@ input:focus {
 }
 
 .spin-wheel-button,
-.spin-again-button {
+.spin-again-button,
+.add-button {
   border: none;
   font-size: 1.3rem;
   width: 250px;
   padding: 8px 0;
+  margin-bottom: 1.5rem;
 }
 
 .spin-wheel-button {
   background-color: white;
 }
 
-.spin-again-button {
+.spin-again-button,
+.add-button {
   background-color: black;
 }
 
 .home-button:hover,
 .watchlist-button:hover,
 .spin-wheel-button:hover,
-.spin-again-button:hover {
+.spin-again-button:hover,
+.add-button:hover {
   cursor: pointer;
 }
 

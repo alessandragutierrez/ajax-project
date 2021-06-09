@@ -1,6 +1,22 @@
 /* exported data */
 /* exported genres */
 
+var data = {
+  view: 'home',
+  currentMovie: {},
+  entries: []
+};
+
+var previousEntriesJSON = localStorage.getItem('watchlist-data');
+if (previousEntriesJSON !== null) {
+  data = JSON.parse(previousEntriesJSON);
+}
+
+window.addEventListener('beforeunload', function (event) {
+  var newEntryJSON = JSON.stringify(data);
+  localStorage.setItem('watchlist-data', newEntryJSON);
+});
+
 var genres = [
   { id: 28, name: 'Action' },
   { id: 12, name: 'Adventure' },

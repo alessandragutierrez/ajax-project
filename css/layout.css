@@ -33,7 +33,8 @@ input {
 }
 
 .column-full,
-.column-half {
+.column-half,
+.column-third {
   width: 100%;
 }
 
@@ -57,12 +58,16 @@ input {
   }
 
   .column-full,
-  .column-half {
+  .column-half, {
     padding: 0 0.75rem;
   }
 
   .column-half {
     width: 50%;
+  }
+
+  .column-third {
+    width: 33.3%;
   }
 
   .img-div {
