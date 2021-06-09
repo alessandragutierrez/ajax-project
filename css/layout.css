@@ -7,13 +7,6 @@ main,
   min-height: 100vh;
 }
 
-.container,
-.nav-bar {
-  max-width: 575px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -32,6 +25,13 @@ input {
 }
 
 /* mobile view */
+.container,
+.nav-bar {
+  max-width: 575px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
 .column-full,
 .column-half {
   width: 100%;
