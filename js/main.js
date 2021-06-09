@@ -3,9 +3,9 @@
 var $homeView = document.querySelector('#home');
 var $resultView = document.querySelector('#result');
 var $homeButton = document.querySelector('.home-button');
-var $filterForm = document.querySelector('.filter-form');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
+var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 var formValues = {};
@@ -34,8 +34,10 @@ function goHome(event) {
 
 function requestInitalMovie() {
   var xhr = new XMLHttpRequest();
-  if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
+  if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+  } else if (formValues.filterYear !== '') {
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterGenre !== '') {
     xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
@@ -52,8 +54,10 @@ function requestInitalMovie() {
 
 function requestMoreMovies() {
   var xhr = new XMLHttpRequest();
-  if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
+  if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+  } else if (formValues.filterYear !== '') {
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterGenre !== '') {
     xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
