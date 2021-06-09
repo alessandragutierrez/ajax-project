@@ -5,6 +5,7 @@ var $resultView = document.querySelector('#result');
 var $homeButton = document.querySelector('.home-button');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
+var $addButton = document.querySelector('.add-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
@@ -48,8 +49,8 @@ function requestInitalMovie() {
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
     var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
-    var newMovie = renderMovie(randomMovie);
     storeCurrentMovie(randomMovie);
+    var newMovie = renderMovie(randomMovie);
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
@@ -70,8 +71,8 @@ function requestMoreMovies() {
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
     var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
-    var newMovie = renderMovie(randomMovie);
     storeCurrentMovie(randomMovie);
+    var newMovie = renderMovie(randomMovie);
     clearResult();
     $movieResultContainer.prepend(newMovie);
   });
@@ -207,3 +208,5 @@ function titleCase(string) {
   var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   return titleCase;
 }
+
+$addButton.addEventListener('click', function () {});
