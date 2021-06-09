@@ -17,11 +17,16 @@ function saveFormValues() {
   return filterYear;
 }
 
+function clearForm() {
+  $filterForm.elements.year.value = '';
+}
+
 function getMovie(event) {
   requestInitalMovie();
   $homeView.classList.add('hidden');
   $resultView.classList.remove('hidden');
   saveFormValues();
+  clearForm();
 }
 
 function getMoreMovies(event) {
