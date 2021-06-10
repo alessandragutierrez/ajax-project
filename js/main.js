@@ -8,6 +8,7 @@ var $addButton = document.querySelector('.add-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
+var $deleteModal = document.querySelector('.delete-modal');
 var movieResultArray = [];
 var formValues = {};
 var currentMovie = {};
@@ -17,6 +18,15 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
+
+$watchlistContainer.addEventListener('click', openModal);
+
+function openModal() {
+  if (event.target.classList.contains('fa-trash') !== true) {
+    return;
+  }
+  $deleteModal.classList.remove('hidden');
+}
 
 function handleLoad(event) {
   createWatchlistEntries();
