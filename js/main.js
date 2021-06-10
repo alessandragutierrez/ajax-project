@@ -24,8 +24,8 @@ function handleLoad(event) {
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
-    var entry = renderMovie(data.entries[i]);
-    $watchlistContainer.appendChild(entry);
+    var newEntry = renderMovie(data.entries[i]);
+    $watchlistContainer.appendChild(newEntry);
   }
 }
 
@@ -52,7 +52,8 @@ function getMoreMovies(event) {
 
 function saveCurrentMovie(event) {
   data.entries.push(data.currentMovie);
-  data.currentMovie = {};
+  var newEntry = renderMovie(data.currentMovie);
+  $watchlistContainer.appendChild(newEntry);
 }
 
 function requestInitalMovie() {
