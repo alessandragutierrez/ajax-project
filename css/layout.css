@@ -16,10 +16,6 @@ img {
   max-width: 100%;
 }
 
-.movie-desc {
-  padding: 0 10px;
-}
-
 input {
   width: 100%;
 }
@@ -42,16 +38,25 @@ input {
   width: 325px;
 }
 
+.movie {
+  padding-top: 15px;
+}
+
 .img-div {
   width: 250px;
 }
 
-.movie {
-  padding: 20px 0;
+.movie-desc {
+  padding: 0 10px;
+  margin-bottom: 1.5rem;
 }
 
 /* desktop view */
 @media screen and (min-width: 768px) {
+  .container {
+    padding: 30px 0;
+  }
+
   .container,
   .nav-bar {
     max-width: 900px;
@@ -70,19 +75,24 @@ input {
     width: 33.3%;
   }
 
+  .filter-form {
+    width: 400px;
+  }
+
+  .movie {
+    padding-bottom: 20px;
+  }
+
   .img-div {
     width: 350px;
   }
 
-  .movie {
-    padding: 50px 0;
-  }
-
   .movie-desc {
-    padding: 0 30px;
+    padding-left: 40px;
   }
 
-  .filter-form {
-    width: 400px;
+  .spin-again-button,
+  .add-button {
+    margin-top: 1rem;
   }
 }

@@ -1,42 +1,51 @@
 /* global genres */
 
 var $viewElements = document.querySelectorAll('.view');
-var $homeButton = document.querySelector('.home-button');
+var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
+var $watchlistContainer = document.querySelector('.watchlist-container');
 var movieResultArray = [];
 var formValues = {};
 
-$homeButton.addEventListener('click', goHome);
+window.addEventListener('DOMContentLoaded', handleLoad);
+$navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 
-function goHome(event) {
-  swapViews('home');
+function handleLoad(event) {
+  createWatchlistEntries();
+  swapViews(data.view);
+}
+
+function handleNavClick(event) {
+  swapViews(event.target.getAttribute('data-view'));
+  underline(event.target.getAttribute('data-view'));
   clearResult();
 }
 
 function getMovie(event) {
   saveFormValues();
   clearForm();
-  requestInitalMovie();
+  requestMovie();
   swapViews('result');
 }
 
 function getMoreMovies(event) {
-  requestMoreMovies();
+  requestMovie();
 }
 
 function saveCurrentMovie(event) {
   data.entries.push(data.currentMovie);
-  data.currentMovie = {};
+  var newEntry = renderMovie(data.currentMovie);
+  $watchlistContainer.appendChild(newEntry);
 }
 
-function requestInitalMovie() {
+function requestMovie() {
   var xhr = new XMLHttpRequest();
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
     xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
@@ -57,39 +66,6 @@ function requestInitalMovie() {
     $movieResultContainer.prepend(newMovie);
   });
   xhr.send();
-}
-
-function requestMoreMovies() {
-  var xhr = new XMLHttpRequest();
-  if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
-  } else if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
-  } else if (formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
-  } else {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate');
-  }
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    movieResultArray = xhr.response.results;
-    var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
-    storeCurrentMovie(randomMovie);
-    var newMovie = renderMovie(randomMovie);
-    clearResult();
-    $movieResultContainer.prepend(newMovie);
-  });
-  xhr.send();
-}
-
-function storeCurrentMovie(movie) {
-  data.currentMovie.id = movie.id;
-  data.currentMovie.poster_path = movie.poster_path;
-  data.currentMovie.title = movie.title;
-  data.currentMovie.release_date = movie.release_date;
-  data.currentMovie.vote_average = movie.vote_average;
-  data.currentMovie.genre_ids = movie.genre_ids;
-  data.currentMovie.overview = movie.overview;
 }
 
 function renderMovie(movie) {
@@ -154,6 +130,64 @@ function renderMovie(movie) {
   return $movie;
 }
 
+function storeCurrentMovie(movie) {
+  data.currentMovie.id = movie.id;
+  data.currentMovie.poster_path = movie.poster_path;
+  data.currentMovie.title = movie.title;
+  data.currentMovie.release_date = movie.release_date;
+  data.currentMovie.vote_average = movie.vote_average;
+  data.currentMovie.genre_ids = movie.genre_ids;
+  data.currentMovie.overview = movie.overview;
+}
+
+function createWatchlistEntries() {
+  for (var i = 0; i < data.entries.length; i++) {
+    var newEntry = renderMovie(data.entries[i]);
+    $watchlistContainer.appendChild(newEntry);
+  }
+}
+
+function swapViews(view) {
+  for (var i = 0; i < $viewElements.length; i++) {
+    if ($viewElements[i].getAttribute('data-view') !== view) {
+      $viewElements[i].classList.add('hidden');
+    } else {
+      $viewElements[i].classList.remove('hidden');
+      data.view = view;
+    }
+  }
+}
+
+function clearResult() {
+  if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
+    return;
+  }
+  $movieResultContainer.firstElementChild.remove();
+}
+
+function saveFormValues() {
+  formValues.filterYear = $filterForm.elements.year.value;
+  formValues.filterGenre = $filterForm.elements.genre.value;
+  formValues.filterGenreId = findFilterGenre();
+  return formValues;
+}
+
+function findFilterGenre() {
+  var filterGenre = titleCase($filterForm.elements.genre.value);
+  var filterGenreId;
+  for (var i = 0; i < genres.length; i++) {
+    if (filterGenre === genres[i].name) {
+      filterGenreId = genres[i].id;
+    }
+  }
+  return filterGenreId;
+}
+
+function clearForm() {
+  $filterForm.elements.year.value = '';
+  $filterForm.elements.genre.value = '';
+}
+
 function findYear(movie) {
   var year = '';
   for (var i = 0; i < 4; i++) {
@@ -181,48 +215,17 @@ function findGenre(movie) {
   return movieGenres;
 }
 
-function saveFormValues() {
-  formValues.filterYear = $filterForm.elements.year.value;
-  formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterGenreId = findFilterGenre();
-  return formValues;
-}
-
-function findFilterGenre() {
-  var filterGenre = titleCase($filterForm.elements.genre.value);
-  var filterGenreId;
-  for (var i = 0; i < genres.length; i++) {
-    if (filterGenre === genres[i].name) {
-      filterGenreId = genres[i].id;
-    }
-  }
-  return filterGenreId;
-}
-
-function clearForm() {
-  $filterForm.elements.year.value = '';
-  $filterForm.elements.genre.value = '';
-}
-
-function clearResult() {
-  if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
-    return;
-  }
-  $movieResultContainer.firstElementChild.remove();
-}
-
 function titleCase(string) {
   var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   return titleCase;
 }
 
-function swapViews(view) {
-  for (var i = 0; i < $viewElements.length; i++) {
-    if ($viewElements[i].getAttribute('data-view') !== view) {
-      $viewElements[i].classList.add('hidden');
+function underline(target) {
+  for (var i = 0; i < $navBar.children.length; i++) {
+    if ($navBar.children[i].getAttribute('data-view') !== target) {
+      $navBar.children[i].classList.remove('underline');
     } else {
-      $viewElements[i].classList.remove('hidden');
-      data.view = view;
+      $navBar.children[i].classList.add('underline');
     }
   }
 }

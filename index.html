@@ -15,8 +15,8 @@
 <body>
   <header>
     <div class="row nav-bar">
-      <h3 class="home-button white uppercase amaranth underline">Home</h3>
-      <h3 class="watchlist-button white uppercase amaranth">Watchlist</h3>
+      <h3 data-view="home" class="home-button white uppercase amaranth underline">Home</h3>
+      <h3 data-view="watchlist" class="watchlist-button white uppercase amaranth">Watchlist</h3>
     </div>
   </header>
   <main>
@@ -52,6 +52,11 @@
             <button class="uppercase white amiko border-radius add-button">Add to Watchlist</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div data-view="watchlist" class="view hidden">
+      <div class="container watchlist-container">
+
       </div>
     </div>
   </main>
