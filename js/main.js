@@ -25,6 +25,7 @@ function handleLoad(event) {
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
     var entry = renderMovie(data.entries[i]);
+    $watchlistContainer.appendChild(entry);
   }
 }
 
