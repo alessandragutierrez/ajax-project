@@ -18,8 +18,20 @@ $addButton.addEventListener('click', saveCurrentMovie);
 function handleNavClick(event) {
   if (event.target.classList.contains('home-button') === true) {
     swapViews('home');
+    underline('home-button');
   } else if (event.target.classList.contains('watchlist-button') === true) {
     swapViews('watchlist');
+    underline('watchlist-button');
+  }
+}
+
+function underline(target) {
+  for (var i = 0; i < $navBar.children.length; i++) {
+    if ($navBar.children[i].classList.contains(target) !== true) {
+      $navBar.children[i].classList.remove('underline');
+    } else {
+      $navBar.children[i].classList.add('underline');
+    }
   }
 }
 
