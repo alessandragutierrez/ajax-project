@@ -15,7 +15,17 @@ $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 
-window.addEventListener('DOMContentLoaded', function () {});
+window.addEventListener('DOMContentLoaded', handleLoad);
+
+function handleLoad(event) {
+  createWatchlistEntries();
+}
+
+function createWatchlistEntries() {
+  for (var i = 0; i < data.entries.length; i++) {
+    var entry = renderMovie(data.entries[i]);
+  }
+}
 
 function handleNavClick(event) {
   if (event.target.classList.contains('home-button') === true) {
