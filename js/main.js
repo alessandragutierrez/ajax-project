@@ -15,6 +15,8 @@ $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 
+window.addEventListener('DOMContentLoaded', function () {});
+
 function handleNavClick(event) {
   if (event.target.classList.contains('home-button') === true) {
     swapViews('home');
@@ -22,16 +24,6 @@ function handleNavClick(event) {
   } else if (event.target.classList.contains('watchlist-button') === true) {
     swapViews('watchlist');
     underline('watchlist-button');
-  }
-}
-
-function underline(target) {
-  for (var i = 0; i < $navBar.children.length; i++) {
-    if ($navBar.children[i].classList.contains(target) !== true) {
-      $navBar.children[i].classList.remove('underline');
-    } else {
-      $navBar.children[i].classList.add('underline');
-    }
   }
 }
 
@@ -226,11 +218,6 @@ function clearResult() {
   $movieResultContainer.firstElementChild.remove();
 }
 
-function titleCase(string) {
-  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  return titleCase;
-}
-
 function swapViews(view) {
   for (var i = 0; i < $viewElements.length; i++) {
     if ($viewElements[i].getAttribute('data-view') !== view) {
@@ -238,6 +225,21 @@ function swapViews(view) {
     } else {
       $viewElements[i].classList.remove('hidden');
       data.view = view;
+    }
+  }
+}
+
+function titleCase(string) {
+  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  return titleCase;
+}
+
+function underline(target) {
+  for (var i = 0; i < $navBar.children.length; i++) {
+    if ($navBar.children[i].classList.contains(target) !== true) {
+      $navBar.children[i].classList.remove('underline');
+    } else {
+      $navBar.children[i].classList.add('underline');
     }
   }
 }
