@@ -1,7 +1,7 @@
 /* global genres */
 
 var $viewElements = document.querySelectorAll('.view');
-var $homeButton = document.querySelector('.home-button');
+var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
@@ -10,14 +10,17 @@ var $movieResultContainer = document.querySelector('.movie-container');
 var movieResultArray = [];
 var formValues = {};
 
-$homeButton.addEventListener('click', goHome);
+$navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 
-function goHome(event) {
-  swapViews('home');
-  clearResult();
+function handleNavClick(event) {
+  if (event.target.classList.contains('home-button') === true) {
+    swapViews('home');
+  } else if (event.target.classList.contains('watchlist-button') === true) {
+    swapViews('watchlist');
+  }
 }
 
 function getMovie(event) {
