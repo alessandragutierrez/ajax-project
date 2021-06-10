@@ -7,6 +7,7 @@ var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
+var $watchlistContainer = document.querySelector('.watchlist-container');
 var movieResultArray = [];
 var formValues = {};
 
