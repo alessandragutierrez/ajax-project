@@ -12,59 +12,55 @@ var $deleteModal = document.querySelector('.delete-modal');
 var movieResultArray = [];
 var formValues = {};
 var currentMovie = {};
+var deleteTarget;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
-
 $watchlistContainer.addEventListener('click', openModal);
-
-function openModal() {
-  if (event.target.classList.contains('fa-trash') !== true) {
-    return;
-  }
-  $deleteModal.classList.remove('hidden');
-}
-
 $deleteModal.addEventListener('click', handleModalClick);
-
-function handleModalClick(event) {
-  if (event.target.classList.contains('delete-modal') === true ||
-      event.target.classList.contains('cancel-button') === true) {
-    $deleteModal.classList.add('hidden');
-  }
-}
 
 function handleLoad(event) {
   createWatchlistEntries();
   swapViews(data.view);
   underline(data.view);
 }
-
 function handleNavClick(event) {
   swapViews(event.target.getAttribute('data-view'));
   underline(event.target.getAttribute('data-view'));
   clearResult();
 }
-
 function getMovie(event) {
   saveFormValues();
   clearForm();
   requestMovie();
   swapViews('result');
 }
-
 function getMoreMovies(event) {
   requestMovie();
 }
-
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
   var newEntry = renderMovie(currentMovie);
   $watchlistContainer.appendChild(newEntry);
   addDeleteIcon(data.entries.length - 1);
+}
+function openModal(event) {
+  if (event.target.classList.contains('fa-trash') !== true) {
+    return;
+  }
+  $deleteModal.classList.remove('hidden');
+  deleteTarget = event.target;
+}
+function handleModalClick(event) {
+  if (event.target.classList.contains('delete-modal') === true ||
+    event.target.classList.contains('cancel-button') === true) {
+    $deleteModal.classList.add('hidden');
+  } else if (event.target.classList.contains('delete-button') === true) {
+    deleteEntry();
+  }
 }
 
 function requestMovie() {
@@ -93,6 +89,7 @@ function requestMovie() {
 function renderMovie(movie) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
+  $movie.setAttribute('id', movie.id);
 
   var $imgDiv = document.createElement('div');
   $imgDiv.className = 'column-half img-div';
@@ -151,7 +148,6 @@ function renderMovie(movie) {
   $movieDesc.appendChild($plotSummary);
   return $movie;
 }
-
 function storeCurrentMovie(movie) {
   currentMovie.id = movie.id;
   currentMovie.poster_path = movie.poster_path;
@@ -167,6 +163,67 @@ function createWatchlistEntries() {
     var newEntry = renderMovie(data.entries[i]);
     $watchlistContainer.appendChild(newEntry);
     addDeleteIcon(i);
+  }
+}
+
+function saveFormValues() {
+  formValues.filterYear = $filterForm.elements.year.value;
+  formValues.filterGenre = $filterForm.elements.genre.value;
+  formValues.filterGenreId = findFilterGenre();
+  return formValues;
+}
+function findFilterGenre() {
+  var filterGenre = titleCase($filterForm.elements.genre.value);
+  var filterGenreId;
+  for (var i = 0; i < genres.length; i++) {
+    if (filterGenre === genres[i].name) {
+      filterGenreId = genres[i].id;
+    }
+  }
+  return filterGenreId;
+}
+function clearForm() {
+  $filterForm.elements.year.value = '';
+  $filterForm.elements.genre.value = '';
+}
+
+function findYear(movie) {
+  var year = '';
+  for (var i = 0; i < 4; i++) {
+    year += movie.charAt(i);
+  }
+  return year;
+}
+function findGenre(movie) {
+  var movieGenres = '';
+  for (var i = 0; i < movie.length - 1; i++) {
+    var genreID = movie[i];
+    for (var j = 0; j < genres.length; j++) {
+      if (genreID === genres[j].id) {
+        movieGenres += genres[j].name + '/';
+      }
+    }
+  }
+  genreID = movie[movie.length - 1];
+  for (var k = 0; k < genres.length; k++) {
+    if (genreID === genres[k].id) {
+      movieGenres += genres[k].name;
+    }
+  }
+  return movieGenres;
+}
+function titleCase(string) {
+  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  return titleCase;
+}
+
+function underline(target) {
+  for (var i = 0; i < $navBar.children.length; i++) {
+    if ($navBar.children[i].getAttribute('data-view') !== target) {
+      $navBar.children[i].classList.remove('underline');
+    } else {
+      $navBar.children[i].classList.add('underline');
+    }
   }
 }
 
@@ -188,74 +245,21 @@ function clearResult() {
   $movieResultContainer.firstElementChild.remove();
 }
 
-function saveFormValues() {
-  formValues.filterYear = $filterForm.elements.year.value;
-  formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterGenreId = findFilterGenre();
-  return formValues;
-}
-
-function findFilterGenre() {
-  var filterGenre = titleCase($filterForm.elements.genre.value);
-  var filterGenreId;
-  for (var i = 0; i < genres.length; i++) {
-    if (filterGenre === genres[i].name) {
-      filterGenreId = genres[i].id;
-    }
-  }
-  return filterGenreId;
-}
-
-function clearForm() {
-  $filterForm.elements.year.value = '';
-  $filterForm.elements.genre.value = '';
-}
-
-function findYear(movie) {
-  var year = '';
-  for (var i = 0; i < 4; i++) {
-    year += movie.charAt(i);
-  }
-  return year;
-}
-
-function findGenre(movie) {
-  var movieGenres = '';
-  for (var i = 0; i < movie.length - 1; i++) {
-    var genreID = movie[i];
-    for (var j = 0; j < genres.length; j++) {
-      if (genreID === genres[j].id) {
-        movieGenres += genres[j].name + '/';
-      }
-    }
-  }
-  genreID = movie[movie.length - 1];
-  for (var k = 0; k < genres.length; k++) {
-    if (genreID === genres[k].id) {
-      movieGenres += genres[k].name;
-    }
-  }
-  return movieGenres;
-}
-
-function titleCase(string) {
-  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  return titleCase;
-}
-
-function underline(target) {
-  for (var i = 0; i < $navBar.children.length; i++) {
-    if ($navBar.children[i].getAttribute('data-view') !== target) {
-      $navBar.children[i].classList.remove('underline');
-    } else {
-      $navBar.children[i].classList.add('underline');
-    }
-  }
-}
-
 function addDeleteIcon(i) {
   var $deleteIcon = document.createElement('span');
   $deleteIcon.className = 'fas fa-trash';
   var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
   movieTitleElements[i].appendChild($deleteIcon);
+}
+
+function deleteEntry() {
+  var movieTarget = deleteTarget.closest('div.movie');
+  var movieTargetID = movieTarget.getAttribute('id');
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].id === parseInt(movieTargetID)) {
+      data.entries.splice(i, 1);
+      movieTarget.remove();
+    }
+  }
+  $deleteModal.classList.add('hidden');
 }
