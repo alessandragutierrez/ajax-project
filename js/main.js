@@ -157,36 +157,6 @@ function storeCurrentMovie(movie) {
   currentMovie.genre_ids = movie.genre_ids;
   currentMovie.overview = movie.overview;
 }
-
-function createWatchlistEntries() {
-  for (var i = 0; i < data.entries.length; i++) {
-    var newEntry = renderMovie(data.entries[i]);
-    $watchlistContainer.appendChild(newEntry);
-    addDeleteIcon(i);
-  }
-}
-
-function saveFormValues() {
-  formValues.filterYear = $filterForm.elements.year.value;
-  formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterGenreId = findFilterGenre();
-  return formValues;
-}
-function findFilterGenre() {
-  var filterGenre = titleCase($filterForm.elements.genre.value);
-  var filterGenreId;
-  for (var i = 0; i < genres.length; i++) {
-    if (filterGenre === genres[i].name) {
-      filterGenreId = genres[i].id;
-    }
-  }
-  return filterGenreId;
-}
-function clearForm() {
-  $filterForm.elements.year.value = '';
-  $filterForm.elements.genre.value = '';
-}
-
 function findYear(movie) {
   var year = '';
   for (var i = 0; i < 4; i++) {
@@ -212,9 +182,55 @@ function findGenre(movie) {
   }
   return movieGenres;
 }
+
+function saveFormValues() {
+  formValues.filterYear = $filterForm.elements.year.value;
+  formValues.filterGenre = $filterForm.elements.genre.value;
+  formValues.filterGenreId = findFilterGenre();
+  return formValues;
+}
+function findFilterGenre() {
+  var filterGenre = titleCase($filterForm.elements.genre.value);
+  var filterGenreId;
+  for (var i = 0; i < genres.length; i++) {
+    if (filterGenre === genres[i].name) {
+      filterGenreId = genres[i].id;
+    }
+  }
+  return filterGenreId;
+}
 function titleCase(string) {
   var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   return titleCase;
+}
+function clearForm() {
+  $filterForm.elements.year.value = '';
+  $filterForm.elements.genre.value = '';
+}
+
+function createWatchlistEntries() {
+  for (var i = 0; i < data.entries.length; i++) {
+    var newEntry = renderMovie(data.entries[i]);
+    $watchlistContainer.appendChild(newEntry);
+    addDeleteIcon(i);
+  }
+}
+function addDeleteIcon(i) {
+  var $deleteIcon = document.createElement('span');
+  $deleteIcon.className = 'fas fa-trash';
+  var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
+  movieTitleElements[i].appendChild($deleteIcon);
+}
+function deleteEntry() {
+  var movieTarget = deleteTarget.closest('div.movie');
+  var movieTargetID = movieTarget.getAttribute('id');
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].id === parseInt(movieTargetID)) {
+      data.entries.splice(i, 1);
+      movieTarget.remove();
+    }
+  }
+  $deleteModal.classList.add('hidden');
 }
 
 function underline(target) {
@@ -243,23 +259,4 @@ function clearResult() {
     return;
   }
   $movieResultContainer.firstElementChild.remove();
-}
-
-function addDeleteIcon(i) {
-  var $deleteIcon = document.createElement('span');
-  $deleteIcon.className = 'fas fa-trash';
-  var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
-  movieTitleElements[i].appendChild($deleteIcon);
-}
-
-function deleteEntry() {
-  var movieTarget = deleteTarget.closest('div.movie');
-  var movieTargetID = movieTarget.getAttribute('id');
-  for (var i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].id === parseInt(movieTargetID)) {
-      data.entries.splice(i, 1);
-      movieTarget.remove();
-    }
-  }
-  $deleteModal.classList.add('hidden');
 }
