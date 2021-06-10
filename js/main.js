@@ -28,6 +28,15 @@ function openModal() {
   $deleteModal.classList.remove('hidden');
 }
 
+$deleteModal.addEventListener('click', handleModalClick);
+
+function handleModalClick(event) {
+  if (event.target.classList.contains('delete-modal') === true ||
+      event.target.classList.contains('cancel-button') === true) {
+    $deleteModal.classList.add('hidden');
+  }
+}
+
 function handleLoad(event) {
   createWatchlistEntries();
   swapViews(data.view);
