@@ -74,11 +74,19 @@ input:focus {
   margin-bottom: 1.5rem;
 }
 
+.fa-trash {
+  font-size: 20px;
+  position: relative;
+  left: 12px;
+  bottom: 4px;
+}
+
 .home-button:hover,
 .watchlist-button:hover,
 .spin-wheel-button:hover,
 .spin-again-button:hover,
-.add-button:hover {
+.add-button:hover,
+.fa-trash:hover {
   cursor: pointer;
 }
 

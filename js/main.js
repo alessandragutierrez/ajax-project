@@ -10,6 +10,7 @@ var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
 var movieResultArray = [];
 var formValues = {};
+var currentMovie = {};
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
@@ -20,6 +21,7 @@ $addButton.addEventListener('click', saveCurrentMovie);
 function handleLoad(event) {
   createWatchlistEntries();
   swapViews(data.view);
+  underline(data.view);
 }
 
 function handleNavClick(event) {
@@ -40,9 +42,10 @@ function getMoreMovies(event) {
 }
 
 function saveCurrentMovie(event) {
-  data.entries.push(data.currentMovie);
-  var newEntry = renderMovie(data.currentMovie);
+  data.entries.push(currentMovie);
+  var newEntry = renderMovie(currentMovie);
   $watchlistContainer.appendChild(newEntry);
+  addDeleteIcon(data.entries.length - 1);
 }
 
 function requestMovie() {
@@ -131,19 +134,20 @@ function renderMovie(movie) {
 }
 
 function storeCurrentMovie(movie) {
-  data.currentMovie.id = movie.id;
-  data.currentMovie.poster_path = movie.poster_path;
-  data.currentMovie.title = movie.title;
-  data.currentMovie.release_date = movie.release_date;
-  data.currentMovie.vote_average = movie.vote_average;
-  data.currentMovie.genre_ids = movie.genre_ids;
-  data.currentMovie.overview = movie.overview;
+  currentMovie.id = movie.id;
+  currentMovie.poster_path = movie.poster_path;
+  currentMovie.title = movie.title;
+  currentMovie.release_date = movie.release_date;
+  currentMovie.vote_average = movie.vote_average;
+  currentMovie.genre_ids = movie.genre_ids;
+  currentMovie.overview = movie.overview;
 }
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
     var newEntry = renderMovie(data.entries[i]);
     $watchlistContainer.appendChild(newEntry);
+    addDeleteIcon(i);
   }
 }
 
@@ -228,4 +232,11 @@ function underline(target) {
       $navBar.children[i].classList.add('underline');
     }
   }
+}
+
+function addDeleteIcon(i) {
+  var $deleteIcon = document.createElement('span');
+  $deleteIcon.className = 'fas fa-trash';
+  var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
+  movieTitleElements[i].appendChild($deleteIcon);
 }

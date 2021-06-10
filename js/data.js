@@ -3,7 +3,6 @@
 
 var data = {
   view: 'home',
-  currentMovie: {},
   entries: []
 };
 
