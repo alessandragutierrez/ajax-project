@@ -1,9 +1,9 @@
-header {
-  background-color: #343434;
+body {
+  background-color: black;
 }
 
-main {
-  background-color: black;
+header {
+  background-color: #343434;
 }
 
 .container {
@@ -55,6 +55,15 @@ input:focus {
   outline-color: white;
 }
 
+.spin-wheel-button {
+  background-color: white;
+}
+
+.spin-again-button,
+.add-button {
+  background-color: black;
+}
+
 .spin-wheel-button,
 .spin-again-button,
 .add-button {
@@ -63,15 +72,6 @@ input:focus {
   width: 250px;
   padding: 8px 0;
   margin-bottom: 1.5rem;
-}
-
-.spin-wheel-button {
-  background-color: white;
-}
-
-.spin-again-button,
-.add-button {
-  background-color: black;
 }
 
 .home-button:hover,
