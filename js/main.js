@@ -24,7 +24,11 @@ $deleteModal.addEventListener('click', handleModalClick);
 
 function handleLoad(event) {
   createWatchlistEntries();
-  swapViews(data.view);
+  if (data.view !== 'result') {
+    swapViews(data.view);
+  } else {
+    swapViews('home');
+  }
   underline(data.view);
 }
 function handleNavClick(event) {
@@ -66,18 +70,18 @@ function handleModalClick(event) {
 function requestMovie() {
   var xhr = new XMLHttpRequest();
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
   }
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     movieResultArray = xhr.response.results;
-    var randomMovie = movieResultArray[Math.floor(Math.random() * 20)];
+    var randomMovie = movieResultArray[Math.floor(Math.random() * movieResultArray.length)];
     storeCurrentMovie(randomMovie);
     var newMovie = renderMovie(randomMovie);
     clearResult();
@@ -186,8 +190,9 @@ function findGenre(movie) {
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
   formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterRating = $filterForm.elements.rating.value;
   formValues.filterGenreId = findFilterGenre();
+  formValues.filterRatingMin = $filterForm.elements.rating.value;
+  formValues.filterRatingMax = findMaxRating();
   return formValues;
 }
 function findFilterGenre() {
@@ -203,6 +208,12 @@ function findFilterGenre() {
 function titleCase(string) {
   var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   return titleCase;
+}
+function findMaxRating() {
+  var minNumber = parseInt(formValues.filterRatingMin);
+  var maxNumber = minNumber + 0.9;
+  var maxNumberToString = maxNumber.toString();
+  return maxNumberToString;
 }
 function clearForm() {
   $filterForm.elements.year.value = '';
