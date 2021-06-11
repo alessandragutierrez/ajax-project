@@ -64,6 +64,7 @@ function saveCurrentMovie(event) {
   var newEntry = renderMovie(currentMovie);
   $watchlistContainer.appendChild(newEntry);
   addDeleteIcon(data.entries.length - 1);
+  currentMovie = {};
 }
 function openModal(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
@@ -222,6 +223,20 @@ function findFilterGenre() {
 }
 function titleCase(string) {
   var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  if (titleCase.includes('Tv') === true) {
+    titleCase = titleCase.replace('Tv', 'TV');
+  }
+  if (titleCase.indexOf(' ') !== -1) {
+    var spaceIndex = titleCase.indexOf(' ');
+    var capitalizeSecondWord = '';
+    for (var i = 0; i < spaceIndex; i++) {
+      capitalizeSecondWord += titleCase.charAt(i);
+    }
+    capitalizeSecondWord += titleCase.charAt(spaceIndex);
+    capitalizeSecondWord += titleCase.charAt(spaceIndex + 1).toUpperCase();
+    capitalizeSecondWord += titleCase.slice(spaceIndex + 2);
+    titleCase = capitalizeSecondWord;
+  }
   return titleCase;
 }
 function findMaxRating() {
