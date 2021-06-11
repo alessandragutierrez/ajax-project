@@ -207,6 +207,7 @@ function titleCase(string) {
 function clearForm() {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
+  $filterForm.elements.rating.value = '7';
 }
 
 function createWatchlistEntries() {
