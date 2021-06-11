@@ -1,0 +1,65 @@
+.filter-form {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+label {
+  padding-left: 10px;
+  margin-top: 2rem;
+}
+
+input {
+  background-color: #343434;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+input:focus {
+  outline-color: white;
+}
+
+/* range input */
+datalist {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 18px;
+  padding-right: 10px;
+}
+
+option {
+  font-size: 12px;
+}
+
+input[type=range] {
+  background-color: transparent;
+  -webkit-appearance: none;
+  margin: 0;
+  width: 105%;
+  align-self: center;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  background: #343434;
+  border-radius: 50px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}

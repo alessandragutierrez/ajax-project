@@ -30,31 +30,6 @@ header {
   font-size: 2rem;
 }
 
-.filter-form {
-  margin: 3rem auto;
-}
-
-.form-title {
-  margin-bottom: 2rem;
-}
-
-label {
-  padding-left: 10px;
-}
-
-input {
-  background-color: #343434;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-top: 5px;
-}
-
-input:focus {
-  outline-color: white;
-}
-
 .spin-wheel-button {
   background-color: white;
 }
@@ -79,44 +54,6 @@ input:focus {
   position: relative;
   left: 12px;
   bottom: 4px;
-}
-
-.white {
-  color: white;
-}
-
-.uppercase {
-  text-transform: uppercase;
-  font-weight: 100;
-}
-
-.weight-500 {
-  font-weight: 500;
-}
-
-.weight-600 {
-  font-weight: 600;
-}
-
-.amaranth {
-  font-family: 'Amaranth', sans-serif;
-}
-
-.amiko {
-  font-family: 'Amiko', sans-serif;
-}
-
-.center {
-  text-align: center;
-  justify-content: center;
-}
-
-.border-radius {
-  border-radius: 10px;
-}
-
-.padding-bottom {
-  padding-bottom: 5px;
 }
 
 .delete-modal {
@@ -160,6 +97,44 @@ input:focus {
   font-size: 18px;
   padding: 8px 20px;
   letter-spacing: 1px;
+}
+
+.white {
+  color: white;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+.weight-500 {
+  font-weight: 500;
+}
+
+.weight-600 {
+  font-weight: 600;
+}
+
+.amaranth {
+  font-family: 'Amaranth', sans-serif;
+}
+
+.amiko {
+  font-family: 'Amiko', sans-serif;
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+.padding-bottom {
+  padding-bottom: 5px;
 }
 
 .home-button:hover,
