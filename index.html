@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/range.css">
+  <link rel="stylesheet" href="css/form.css">
   <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,17 +27,11 @@
         <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
       </div>
       <form class="filter-form">
-        <h3 class="white uppercase center amaranth form-title">Filter Results</h3>
+        <h3 class="white uppercase center amaranth">Filter Results</h3>
         <label for="year" class="white uppercase amaranth">Release Year</label>
-        <br>
         <input type="number" id="year" name="year" minlength="4" maxlength="4" placeholder="2021" class="white">
-        <br>
-        <br>
         <label for="genre" class="white uppercase amaranth">Genre</label>
-        <br>
         <input type="text" id="genre" name="genre" placeholder="Adventure" class="white">
-        <br>
-        <br>
         <label for="rating" class="white uppercase amaranth">Rating</label>
         <input type="range" id="rating" name="rating" min="0" max="10" step="1" value="7" list="ratings">
         <datalist id="ratings">
@@ -55,7 +49,7 @@
         </datalist>
       </form>
       <div class="row center spin-wheel-container">
-        <button class="uppercase amiko border-radius spin-wheel-button">Spin The Wheel</button>
+        <button class="uppercase amiko border-radius spin-wheel-button weight-600">Spin The Wheel</button>
       </div>
     </div>
     <div data-view="result" class="view hidden">

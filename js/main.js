@@ -186,6 +186,7 @@ function findGenre(movie) {
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
   formValues.filterGenre = $filterForm.elements.genre.value;
+  formValues.filterRating = $filterForm.elements.rating.value;
   formValues.filterGenreId = findFilterGenre();
   return formValues;
 }
