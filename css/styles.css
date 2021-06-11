@@ -32,6 +32,8 @@ header {
 
 .filter-form {
   margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-title {
