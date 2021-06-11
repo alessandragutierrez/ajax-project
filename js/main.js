@@ -13,6 +13,9 @@ var movieResultArray = [];
 var formValues = {};
 var currentMovie = {};
 var deleteTarget;
+var totalPages;
+var pageNumber;
+var clickCount;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
@@ -30,6 +33,7 @@ function handleLoad(event) {
     swapViews('home');
   }
   underline(data.view);
+  clickCount = 0;
 }
 function handleNavClick(event) {
   swapViews(event.target.getAttribute('data-view'));
@@ -41,9 +45,19 @@ function getMovie(event) {
   clearForm();
   requestMovie();
   swapViews('result');
+  clickCount = 1;
+  pageNumber = 1;
 }
 function getMoreMovies(event) {
+  if ((clickCount >= movieResultArray.length / 2) && (pageNumber === totalPages)) {
+    pageNumber = 1;
+    clickCount = 0;
+  } else if (clickCount >= movieResultArray.length / 2) {
+    pageNumber++;
+    clickCount = 0;
+  }
   requestMovie();
+  clickCount++;
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -70,16 +84,17 @@ function handleModalClick(event) {
 function requestMovie() {
   var xhr = new XMLHttpRequest();
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=1&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
   }
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    totalPages = xhr.response.total_pages;
     movieResultArray = xhr.response.results;
     var randomMovie = movieResultArray[Math.floor(Math.random() * movieResultArray.length)];
     storeCurrentMovie(randomMovie);
