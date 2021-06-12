@@ -34,6 +34,10 @@ input {
   width: 100%;
 }
 
+.watchlist-container {
+  padding-top: 3rem;
+}
+
 .filter-form {
   width: 325px;
 }
@@ -73,6 +77,10 @@ input {
 
   .column-third {
     width: 33.3%;
+  }
+
+  .watchlist-container {
+    padding-top: 4.5rem;
   }
 
   .filter-form {
