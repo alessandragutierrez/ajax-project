@@ -23,10 +23,14 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
-$watchlistContainer.addEventListener('click', openModal);
+$watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 
-$addedButton.addEventListener('click', function () {});
+$addedButton.addEventListener('click', handleAddedButtonClick);
+
+function handleAddedButtonClick(event) {
+  openModal();
+}
 
 function handleLoad(event) {
   createWatchlistEntries();
@@ -72,12 +76,11 @@ function saveCurrentMovie(event) {
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
 }
-function openModal(event) {
+function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
   }
-  $deleteModal.classList.remove('hidden');
-  deleteTarget = event.target;
+  openModal();
 }
 function handleModalClick(event) {
   if (event.target.classList.contains('delete-modal') === true ||
@@ -295,6 +298,10 @@ function addDeleteIcon(i) {
   $deleteIcon.className = 'fas fa-trash';
   var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
   movieTitleElements[i].appendChild($deleteIcon);
+}
+function openModal() {
+  $deleteModal.classList.remove('hidden');
+  deleteTarget = event.target;
 }
 function deleteEntry() {
   var movieTarget = deleteTarget.closest('div.movie');
