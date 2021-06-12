@@ -5,6 +5,7 @@ var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
+var $addedButton = document.querySelector('.added-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
@@ -46,6 +47,7 @@ function getMovie(event) {
   swapViews('result');
   pageNumber = 1;
   alreadySeen = [];
+  resetAddButton();
 }
 function getMoreMovies(event) {
   if (!movieResultArray.length > 0) {
@@ -57,6 +59,7 @@ function getMoreMovies(event) {
     alreadySeen = [];
   }
   requestMovie();
+  resetAddButton();
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -64,6 +67,8 @@ function saveCurrentMovie(event) {
   $watchlistContainer.appendChild(newEntry);
   addDeleteIcon(data.entries.length - 1);
   currentMovie = {};
+  $addButton.classList.add('hidden');
+  $addedButton.classList.remove('hidden');
 }
 function openModal(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
@@ -113,6 +118,7 @@ function requestMovie() {
     var newMovie = renderMovie(randomMovie);
     clearResult();
     $movieResultContainer.prepend(newMovie);
+    checkIfAdded();
   });
   xhr.send();
 }
@@ -260,6 +266,19 @@ function clearForm() {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
   $filterForm.elements.rating.value = '7';
+}
+
+function checkIfAdded() {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].id === currentMovie.id) {
+      $addButton.classList.add('hidden');
+      $addedButton.classList.remove('hidden');
+    }
+  }
+}
+function resetAddButton() {
+  $addButton.classList.remove('hidden');
+  $addedButton.classList.add('hidden');
 }
 
 function createWatchlistEntries() {
