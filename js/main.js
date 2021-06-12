@@ -214,6 +214,12 @@ function findGenre(movie) {
   return movieGenres;
 }
 
+var $ratingLabel = document.querySelector('.rating');
+$filterForm.elements.rating.addEventListener('click', updateLabel);
+function updateLabel(event) {
+  $ratingLabel.textContent = 'Rating ' + ' ( ' + $filterForm.elements.rating.value + ' & up )';
+}
+
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
   formValues.filterGenreId = $filterForm.elements.genre.value;
@@ -231,6 +237,7 @@ function clearForm() {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
   $filterForm.elements.rating.value = '7';
+  $ratingLabel.textContent = 'Rating';
 }
 
 function createWatchlistEntries() {
