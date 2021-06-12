@@ -216,39 +216,10 @@ function findGenre(movie) {
 
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
-  formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterGenreId = findFilterGenre();
+  formValues.filterGenreId = $filterForm.elements.genre.value;
   formValues.filterRatingMin = $filterForm.elements.rating.value;
   formValues.filterRatingMax = findMaxRating();
   return formValues;
-}
-function findFilterGenre() {
-  var filterGenre = titleCase($filterForm.elements.genre.value);
-  var filterGenreId;
-  for (var i = 0; i < genres.length; i++) {
-    if (filterGenre === genres[i].name) {
-      filterGenreId = genres[i].id;
-    }
-  }
-  return filterGenreId;
-}
-function titleCase(string) {
-  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  if (titleCase.includes('Tv') === true) {
-    titleCase = titleCase.replace('Tv', 'TV');
-  }
-  if (titleCase.indexOf(' ') !== -1) {
-    var spaceIndex = titleCase.indexOf(' ');
-    var capitalizeSecondWord = '';
-    for (var i = 0; i < spaceIndex; i++) {
-      capitalizeSecondWord += titleCase.charAt(i);
-    }
-    capitalizeSecondWord += titleCase.charAt(spaceIndex);
-    capitalizeSecondWord += titleCase.charAt(spaceIndex + 1).toUpperCase();
-    capitalizeSecondWord += titleCase.slice(spaceIndex + 2);
-    titleCase = capitalizeSecondWord;
-  }
-  return titleCase;
 }
 function findMaxRating() {
   var minNumber = parseInt(formValues.filterRatingMin);
