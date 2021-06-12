@@ -33,11 +33,14 @@ function handleLoad(event) {
     swapViews('home');
   }
   underline(data.view);
+  triggerNavViewsAnimations();
 }
 function handleNavClick(event) {
   swapViews(event.target.getAttribute('data-view'));
+
   underline(event.target.getAttribute('data-view'));
   clearResult();
+  triggerNavViewsAnimations();
 }
 function getMovie(event) {
   saveFormValues();
@@ -46,6 +49,7 @@ function getMovie(event) {
   swapViews('result');
   pageNumber = 1;
   alreadySeen = [];
+  movieResultAnimation();
 }
 function getMoreMovies(event) {
   if (!movieResultArray.length > 0) {
@@ -57,6 +61,7 @@ function getMoreMovies(event) {
     alreadySeen = [];
   }
   requestMovie();
+  movieResultAnimation();
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -120,7 +125,7 @@ function requestMovie() {
 function renderMovie(movie) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
-  $movie.setAttribute('id', movie.id);
+  $movie.id = movie.id;
 
   var $imgDiv = document.createElement('div');
   $imgDiv.className = 'column-half img-div';
@@ -313,4 +318,24 @@ function clearResult() {
     return;
   }
   $movieResultContainer.firstElementChild.remove();
+}
+
+function triggerNavViewsAnimations() {
+  if (data.view === 'home') {
+    filterFormAnimation();
+  } else if (data.view === 'watchlist') {
+    watchListAnimation();
+  }
+}
+function filterFormAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($filterForm, { duration: 0.5, opacity: 0 });
+}
+function movieResultAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($movieResultContainer, { duration: 0.5, scale: 0.97 });
+}
+function watchListAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($watchlistContainer, { duration: 0.4, y: 25 });
 }
