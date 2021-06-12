@@ -12,7 +12,8 @@ label {
   margin-top: 2rem;
 }
 
-input {
+input,
+select {
   background-color: #343434;
   border: none;
   border-radius: 5px;
@@ -21,8 +22,13 @@ input {
   margin-top: 10px;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline-color: white;
+}
+
+select:hover {
+  cursor: pointer;
 }
 
 /* range input */
