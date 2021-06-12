@@ -10,12 +10,12 @@ var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
 var $deleteModal = document.querySelector('.delete-modal');
 var movieResultArray = [];
+var alreadySeen = [];
 var formValues = {};
 var currentMovie = {};
 var deleteTarget;
 var totalPages;
 var pageNumber;
-var clickCount;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
@@ -33,7 +33,6 @@ function handleLoad(event) {
     swapViews('home');
   }
   underline(data.view);
-  clickCount = 0;
 }
 function handleNavClick(event) {
   swapViews(event.target.getAttribute('data-view'));
@@ -45,19 +44,19 @@ function getMovie(event) {
   clearForm();
   requestMovie();
   swapViews('result');
-  clickCount = 1;
   pageNumber = 1;
+  alreadySeen = [];
 }
 function getMoreMovies(event) {
-  if ((clickCount >= movieResultArray.length / 2) && (pageNumber === totalPages)) {
-    pageNumber = 1;
-    clickCount = 0;
-  } else if (clickCount >= movieResultArray.length / 2) {
+  if (!movieResultArray.length > 0) {
     pageNumber++;
-    clickCount = 0;
+    alreadySeen = [];
+  }
+  if (pageNumber === totalPages) {
+    pageNumber = 1;
+    alreadySeen = [];
   }
   requestMovie();
-  clickCount++;
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -97,7 +96,19 @@ function requestMovie() {
   xhr.addEventListener('load', function () {
     totalPages = xhr.response.total_pages;
     movieResultArray = xhr.response.results;
-    var randomMovie = movieResultArray[Math.floor(Math.random() * movieResultArray.length)];
+    if (alreadySeen.length > 0) {
+      for (var i = 0; i < alreadySeen.length; i++) {
+        for (var j = 0; j < movieResultArray.length; j++) {
+          if (alreadySeen[i] === movieResultArray[j].id) {
+            movieResultArray.splice(j, 1);
+          }
+        }
+      }
+    }
+    var randomIndex = Math.floor(Math.random() * movieResultArray.length);
+    var randomMovie = movieResultArray[randomIndex];
+    movieResultArray.splice(randomIndex, 1);
+    alreadySeen.push(randomMovie.id);
     storeCurrentMovie(randomMovie);
     var newMovie = renderMovie(randomMovie);
     clearResult();
