@@ -9,6 +9,7 @@ var $addedButton = document.querySelector('.added-button');
 var $filterForm = document.querySelector('.filter-form');
 var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
+var $watchlistMovies = $watchlistContainer.getElementsByClassName('movie');
 var $deleteModal = document.querySelector('.delete-modal');
 var movieResultArray = [];
 var alreadySeen = [];
@@ -304,12 +305,23 @@ function openModal() {
   deleteTarget = event.target;
 }
 function deleteEntry() {
-  var movieTarget = deleteTarget.closest('div.movie');
-  var movieTargetID = movieTarget.getAttribute('id');
-  for (var i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].id === parseInt(movieTargetID)) {
-      data.entries.splice(i, 1);
-      movieTarget.remove();
+  if (data.view === 'watchlist') {
+    var movieTarget = deleteTarget.closest('div.movie');
+    var movieTargetID = movieTarget.getAttribute('id');
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].id === parseInt(movieTargetID)) {
+        data.entries.splice(i, 1);
+        movieTarget.remove();
+      }
+    }
+  } else if (data.view === 'result') {
+    for (i = 0; i < $watchlistMovies.length; i++) {
+      if (parseInt($watchlistMovies[i].id) === currentMovie.id) {
+        movieTarget = $watchlistMovies[i];
+        movieTargetID = currentMovie.id;
+        data.entries.splice(i, 1);
+        movieTarget.remove();
+      }
     }
   }
   $deleteModal.classList.add('hidden');
