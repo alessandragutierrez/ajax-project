@@ -321,6 +321,7 @@ function deleteEntry() {
         movieTargetID = currentMovie.id;
         data.entries.splice(i, 1);
         movieTarget.remove();
+        resetAddButton();
       }
     }
   }
