@@ -24,14 +24,9 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
+$addedButton.addEventListener('click', handleAddedButtonClick);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
-
-$addedButton.addEventListener('click', handleAddedButtonClick);
-
-function handleAddedButtonClick(event) {
-  openModal();
-}
 
 function handleLoad(event) {
   createWatchlistEntries();
@@ -76,6 +71,9 @@ function saveCurrentMovie(event) {
   currentMovie = {};
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
+}
+function handleAddedButtonClick(event) {
+  openModal();
 }
 function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
@@ -199,6 +197,7 @@ function storeCurrentMovie(movie) {
   currentMovie.vote_average = movie.vote_average;
   currentMovie.genre_ids = movie.genre_ids;
   currentMovie.overview = movie.overview;
+  data.currentMovieID = movie.id;
 }
 function findYear(movie) {
   var year = '';
@@ -305,10 +304,11 @@ function openModal() {
   deleteTarget = event.target;
 }
 function deleteEntry() {
+  var i;
   if (data.view === 'watchlist') {
     var movieTarget = deleteTarget.closest('div.movie');
     var movieTargetID = movieTarget.getAttribute('id');
-    for (var i = 0; i < data.entries.length; i++) {
+    for (i = 0; i < data.entries.length; i++) {
       if (data.entries[i].id === parseInt(movieTargetID)) {
         data.entries.splice(i, 1);
         movieTarget.remove();
@@ -316,14 +316,14 @@ function deleteEntry() {
     }
   } else if (data.view === 'result') {
     for (i = 0; i < $watchlistMovies.length; i++) {
-      if (parseInt($watchlistMovies[i].id) === currentMovie.id) {
+      if (parseInt($watchlistMovies[i].id) === data.currentMovieID) {
         movieTarget = $watchlistMovies[i];
-        movieTargetID = currentMovie.id;
-        data.entries.splice(i, 1);
+        movieTargetID = data.currentMovieID;
         movieTarget.remove();
-        resetAddButton();
+        data.entries.splice(i, 1);
       }
     }
+    resetAddButton();
   }
   $deleteModal.classList.add('hidden');
 }
