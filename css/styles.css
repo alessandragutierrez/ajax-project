@@ -4,10 +4,9 @@ body {
 
 header {
   background-color: #343434;
-}
-
-.container {
-  background-color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
 }
 
 .nav-bar {
@@ -17,12 +16,25 @@ header {
 .home-button,
 .watchlist-button {
   display: inline-block;
-  margin: 0.7rem 0;
-  padding-right: 2.5rem;
+  padding: 0.8rem 0;
+  margin-right: 3rem;
 }
 
 .underline {
   text-decoration: underline;
+}
+
+.home,
+.result {
+  padding-top: 3rem;
+}
+
+.watchlist-container {
+  padding-top: 4rem;
+}
+
+.container {
+  background-color: white;
 }
 
 .roulette-title {
@@ -66,6 +78,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .delete-box {

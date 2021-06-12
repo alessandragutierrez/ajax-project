@@ -33,11 +33,13 @@ function handleLoad(event) {
     swapViews('home');
   }
   underline(data.view);
-  triggerNavViewsAnimations();
+  filterFormAnimation();
 }
 function handleNavClick(event) {
+  if (event.target.classList.contains('nav') !== true) {
+    return;
+  }
   swapViews(event.target.getAttribute('data-view'));
-
   underline(event.target.getAttribute('data-view'));
   clearResult();
   triggerNavViewsAnimations();
@@ -331,11 +333,11 @@ function filterFormAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($filterForm, { duration: 0.5, opacity: 0 });
 }
+function watchListAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
+}
 function movieResultAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($movieResultContainer, { duration: 0.5, scale: 0.97 });
-}
-function watchListAnimation() {
-  // eslint-disable-next-line no-undef
-  gsap.from($watchlistContainer, { duration: 0.4, y: 25 });
 }
