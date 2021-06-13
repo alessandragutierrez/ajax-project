@@ -320,6 +320,7 @@ function deleteEntry() {
         movieTarget = $watchlistMovies[i];
         movieTargetID = data.currentMovieID;
         movieTarget.remove();
+        currentMovie = data.entries[i];
         data.entries.splice(i, 1);
       }
     }
