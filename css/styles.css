@@ -53,12 +53,22 @@ header {
 
 .spin-wheel-button,
 .spin-again-button,
-.add-button {
+.add-button,
+.added-button {
   border: none;
   font-size: 1.3rem;
   width: 250px;
   padding: 8px 0;
   margin-bottom: 1.5rem;
+}
+
+.added-button {
+  background-color: transparent;
+  width: 300px;
+}
+
+.fa-check-circle {
+  padding-right: 7px;
 }
 
 .fa-trash {
@@ -155,6 +165,7 @@ header {
 .spin-wheel-button:hover,
 .spin-again-button:hover,
 .add-button:hover,
+.added-button:hover,
 .fa-trash:hover,
 .cancel-button:hover,
 .delete-button:hover {

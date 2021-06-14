@@ -5,10 +5,12 @@ var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
+var $addedButton = document.querySelector('.added-button');
 var $filterForm = document.querySelector('.filter-form');
 var $ratingLabel = document.querySelector('.rating');
 var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
+var $watchlistMovies = $watchlistContainer.getElementsByClassName('movie');
 var $deleteModal = document.querySelector('.delete-modal');
 var movieResultArray = [];
 var alreadySeen = [];
@@ -23,7 +25,8 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
-$watchlistContainer.addEventListener('click', openModal);
+$addedButton.addEventListener('click', handleAddedButtonClick);
+$watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('click', updateLabel);
 
@@ -47,12 +50,13 @@ function handleNavClick(event) {
   triggerNavViewsAnimations();
 }
 function getMovie(event) {
+  alreadySeen = [];
+  resetAddButton();
   saveFormValues();
   clearForm();
+  pageNumber = 1;
   requestMovie();
   swapViews('result');
-  pageNumber = 1;
-  alreadySeen = [];
   movieResultAnimation();
 }
 function getMoreMovies(event) {
@@ -64,6 +68,7 @@ function getMoreMovies(event) {
     pageNumber = 1;
     alreadySeen = [];
   }
+  resetAddButton();
   requestMovie();
   movieResultAnimation();
 }
@@ -73,13 +78,17 @@ function saveCurrentMovie(event) {
   $watchlistContainer.appendChild(newEntry);
   addDeleteIcon(data.entries.length - 1);
   currentMovie = {};
+  $addButton.classList.add('hidden');
+  $addedButton.classList.remove('hidden');
 }
-function openModal(event) {
+function handleAddedButtonClick(event) {
+  openModal();
+}
+function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
   }
-  $deleteModal.classList.remove('hidden');
-  deleteTarget = event.target;
+  openModal();
 }
 function handleModalClick(event) {
   if (event.target.classList.contains('delete-modal') === true ||
@@ -125,6 +134,7 @@ function requestMovie() {
     var newMovie = renderMovie(randomMovie);
     clearResult();
     $movieResultContainer.prepend(newMovie);
+    checkIfAdded();
   });
   xhr.send();
 }
@@ -199,6 +209,7 @@ function storeCurrentMovie(movie) {
   currentMovie.vote_average = movie.vote_average;
   currentMovie.genre_ids = movie.genre_ids;
   currentMovie.overview = movie.overview;
+  data.currentMovieID = movie.id;
 }
 function findYear(movie) {
   var year = '';
@@ -239,6 +250,19 @@ function clearForm() {
   $ratingLabel.textContent = 'Rating';
 }
 
+function checkIfAdded() {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].id === currentMovie.id) {
+      $addButton.classList.add('hidden');
+      $addedButton.classList.remove('hidden');
+    }
+  }
+}
+function resetAddButton() {
+  $addButton.classList.remove('hidden');
+  $addedButton.classList.add('hidden');
+}
+
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
     var newEntry = renderMovie(data.entries[i]);
@@ -252,14 +276,32 @@ function addDeleteIcon(i) {
   var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
   movieTitleElements[i].appendChild($deleteIcon);
 }
+function openModal() {
+  $deleteModal.classList.remove('hidden');
+  deleteTarget = event.target;
+}
 function deleteEntry() {
-  var movieTarget = deleteTarget.closest('div.movie');
-  var movieTargetID = movieTarget.getAttribute('id');
-  for (var i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].id === parseInt(movieTargetID)) {
-      data.entries.splice(i, 1);
-      movieTarget.remove();
+  var i;
+  if (data.view === 'watchlist') {
+    var movieTarget = deleteTarget.closest('div.movie');
+    var movieTargetID = movieTarget.getAttribute('id');
+    for (i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].id === parseInt(movieTargetID)) {
+        data.entries.splice(i, 1);
+        movieTarget.remove();
+      }
     }
+  } else if (data.view === 'result') {
+    for (i = 0; i < $watchlistMovies.length; i++) {
+      if (parseInt($watchlistMovies[i].id) === data.currentMovieID) {
+        movieTarget = $watchlistMovies[i];
+        movieTargetID = data.currentMovieID;
+        movieTarget.remove();
+        currentMovie = data.entries[i];
+        data.entries.splice(i, 1);
+      }
+    }
+    resetAddButton();
   }
   $deleteModal.classList.add('hidden');
 }

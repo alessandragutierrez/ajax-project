@@ -3,7 +3,8 @@
 
 var data = {
   view: 'home',
-  entries: []
+  entries: [],
+  currentMovieID: null
 };
 
 var previousEntriesJSON = localStorage.getItem('watchlist-data');

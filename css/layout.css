@@ -100,7 +100,12 @@ input {
   }
 
   .spin-again-button,
-  .add-button {
+  .add-button,
+  .added-button {
     margin-top: 1rem;
+  }
+
+  .added-button {
+    margin-left: 0.7rem;
   }
 }
