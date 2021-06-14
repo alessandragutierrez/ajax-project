@@ -7,12 +7,19 @@
   justify-content: space-around;
 }
 
+.form-title {
+  letter-spacing: 2px;
+}
+
 label {
   padding-left: 10px;
   margin-top: 2rem;
+  font-size: 18px;
+  letter-spacing: 2px;
 }
 
-input {
+input,
+select {
   background-color: #343434;
   border: none;
   border-radius: 5px;
@@ -21,8 +28,13 @@ input {
   margin-top: 10px;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline-color: white;
+}
+
+select:hover {
+  cursor: pointer;
 }
 
 /* range input */
