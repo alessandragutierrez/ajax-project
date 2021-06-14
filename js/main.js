@@ -7,6 +7,7 @@ var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
 var $addedButton = document.querySelector('.added-button');
 var $filterForm = document.querySelector('.filter-form');
+var $ratingLabel = document.querySelector('.rating');
 var $movieResultContainer = document.querySelector('.movie-container');
 var $watchlistContainer = document.querySelector('.watchlist-container');
 var $watchlistMovies = $watchlistContainer.getElementsByClassName('movie');
@@ -27,6 +28,7 @@ $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', handleAddedButtonClick);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
+$filterForm.elements.rating.addEventListener('click', updateLabel);
 
 function handleLoad(event) {
   createWatchlistEntries();
@@ -36,20 +38,26 @@ function handleLoad(event) {
     swapViews('home');
   }
   underline(data.view);
+  filterFormAnimation();
 }
 function handleNavClick(event) {
+  if (event.target.classList.contains('nav') !== true) {
+    return;
+  }
   swapViews(event.target.getAttribute('data-view'));
   underline(event.target.getAttribute('data-view'));
   clearResult();
+  triggerNavViewsAnimations();
 }
 function getMovie(event) {
-  saveFormValues();
-  clearForm();
-  requestMovie();
-  swapViews('result');
-  pageNumber = 1;
   alreadySeen = [];
   resetAddButton();
+  saveFormValues();
+  clearForm();
+  pageNumber = 1;
+  requestMovie();
+  swapViews('result');
+  movieResultAnimation();
 }
 function getMoreMovies(event) {
   if (!movieResultArray.length > 0) {
@@ -60,8 +68,9 @@ function getMoreMovies(event) {
     pageNumber = 1;
     alreadySeen = [];
   }
-  requestMovie();
   resetAddButton();
+  requestMovie();
+  movieResultAnimation();
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -89,17 +98,20 @@ function handleModalClick(event) {
     deleteEntry();
   }
 }
+function updateLabel(event) {
+  $ratingLabel.textContent = 'Rating ' + ' ( ' + $filterForm.elements.rating.value + ' & up )';
+}
 
 function requestMovie() {
   var xhr = new XMLHttpRequest();
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate');
   } else if (formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
   } else {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&vote_average.lte=' + formValues.filterRatingMax + '&with_watch_monetization_types=flatrate');
+    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate');
   }
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
@@ -130,7 +142,7 @@ function requestMovie() {
 function renderMovie(movie) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
-  $movie.setAttribute('id', movie.id);
+  $movie.id = movie.id;
 
   var $imgDiv = document.createElement('div');
   $imgDiv.className = 'column-half img-div';
@@ -227,50 +239,15 @@ function findGenre(movie) {
 
 function saveFormValues() {
   formValues.filterYear = $filterForm.elements.year.value;
-  formValues.filterGenre = $filterForm.elements.genre.value;
-  formValues.filterGenreId = findFilterGenre();
+  formValues.filterGenreId = $filterForm.elements.genre.value;
   formValues.filterRatingMin = $filterForm.elements.rating.value;
-  formValues.filterRatingMax = findMaxRating();
   return formValues;
-}
-function findFilterGenre() {
-  var filterGenre = titleCase($filterForm.elements.genre.value);
-  var filterGenreId;
-  for (var i = 0; i < genres.length; i++) {
-    if (filterGenre === genres[i].name) {
-      filterGenreId = genres[i].id;
-    }
-  }
-  return filterGenreId;
-}
-function titleCase(string) {
-  var titleCase = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  if (titleCase.includes('Tv') === true) {
-    titleCase = titleCase.replace('Tv', 'TV');
-  }
-  if (titleCase.indexOf(' ') !== -1) {
-    var spaceIndex = titleCase.indexOf(' ');
-    var capitalizeSecondWord = '';
-    for (var i = 0; i < spaceIndex; i++) {
-      capitalizeSecondWord += titleCase.charAt(i);
-    }
-    capitalizeSecondWord += titleCase.charAt(spaceIndex);
-    capitalizeSecondWord += titleCase.charAt(spaceIndex + 1).toUpperCase();
-    capitalizeSecondWord += titleCase.slice(spaceIndex + 2);
-    titleCase = capitalizeSecondWord;
-  }
-  return titleCase;
-}
-function findMaxRating() {
-  var minNumber = parseInt(formValues.filterRatingMin);
-  var maxNumber = minNumber + 0.9;
-  var maxNumberToString = maxNumber.toString();
-  return maxNumberToString;
 }
 function clearForm() {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
-  $filterForm.elements.rating.value = '7';
+  $filterForm.elements.rating.value = '0';
+  $ratingLabel.textContent = 'Rating';
 }
 
 function checkIfAdded() {
@@ -355,4 +332,24 @@ function clearResult() {
     return;
   }
   $movieResultContainer.firstElementChild.remove();
+}
+
+function triggerNavViewsAnimations() {
+  if (data.view === 'home') {
+    filterFormAnimation();
+  } else if (data.view === 'watchlist') {
+    watchListAnimation();
+  }
+}
+function filterFormAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($filterForm, { duration: 0.5, opacity: 0 });
+}
+function watchListAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
+}
+function movieResultAnimation() {
+  // eslint-disable-next-line no-undef
+  gsap.from($movieResultContainer, { duration: 0.5, scale: 0.97 });
 }
