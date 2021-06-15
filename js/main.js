@@ -74,9 +74,8 @@ function getMoreMovies(event) {
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
-  var newEntry = renderMovie(currentMovie);
+  var newEntry = renderMovie(currentMovie, true);
   $watchlistContainer.appendChild(newEntry);
-  addDeleteIcon(data.entries.length - 1);
   currentMovie = {};
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
@@ -130,7 +129,7 @@ function requestMovie() {
     movieResultArray.splice(randomIndex, 1);
     alreadySeen.push(randomMovie.id);
     storeCurrentMovie(randomMovie);
-    var newMovie = renderMovie(randomMovie);
+    var newMovie = renderMovie(randomMovie, false);
     clearResult();
     $movieResultContainer.prepend(newMovie);
     checkIfAdded();
@@ -138,7 +137,7 @@ function requestMovie() {
   xhr.send();
 }
 
-function renderMovie(movie) {
+function renderMovie(movie, withDelete) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
   $movie.id = movie.id;
@@ -183,6 +182,12 @@ function renderMovie(movie) {
 
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
+
+  if (withDelete !== false) {
+    var $deleteIcon = document.createElement('span');
+    $deleteIcon.className = 'fas fa-trash';
+    $movieTitle.appendChild($deleteIcon);
+  }
 
   $movie.appendChild($imgDiv);
   $movie.appendChild($movieDesc);
@@ -264,16 +269,9 @@ function resetAddButton() {
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
-    var newEntry = renderMovie(data.entries[i]);
+    var newEntry = renderMovie(data.entries[i], true);
     $watchlistContainer.appendChild(newEntry);
-    addDeleteIcon(i);
   }
-}
-function addDeleteIcon(i) {
-  var $deleteIcon = document.createElement('span');
-  $deleteIcon.className = 'fas fa-trash';
-  var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
-  movieTitleElements[i].appendChild($deleteIcon);
 }
 function openModal() {
   $deleteModal.classList.remove('hidden');
