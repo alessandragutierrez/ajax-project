@@ -9,16 +9,16 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/form.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
   <header>
     <div class="row nav-bar">
-      <h3 data-view="home" class="home-button white uppercase amaranth underline nav">Home</h3>
-      <h3 data-view="watchlist" class="watchlist-button white uppercase amaranth nav">Watchlist</h3>
+      <h3 data-view="home" class="home-button white uppercase pt-sans underline nav">Home</h3>
+      <h3 data-view="watchlist" class="watchlist-button white uppercase pt-sans nav">Watchlist</h3>
     </div>
   </header>
   <main>
@@ -27,10 +27,10 @@
         <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
       </div>
       <form class="filter-form">
-        <h3 class="white uppercase center amaranth form-title">Filter Results</h3>
-        <label for="year" class="white amaranth">Release Year</label>
+        <h3 class="white uppercase center pt-sans weight-600 form-title">Filter Results</h3>
+        <label for="year" class="white pt-sans">Release Year</label>
         <input type="number" id="year" name="year" minlength="4" maxlength="4" placeholder="2021" class="white">
-        <label for="genre" class="white amaranth">Genre</label>
+        <label for="genre" class="white pt-sans">Genre</label>
         <select type="text" id="genre" name="genre" class="white">
           <option value=""></option>
           <option value="28">Action</option>
@@ -53,7 +53,7 @@
           <option value="10752">War</option>
           <option value="37">Western</option>
         </select>
-        <label for="rating" class="white amaranth rating">Rating</label>
+        <label for="rating" class="white pt-sans rating">Rating</label>
         <input type="range" id="rating" name="rating" min="0" max="10" value="0" step="1" list="ratings">
         <datalist id="ratings">
           <option value="0" label="0"></option>
@@ -97,11 +97,11 @@
     <div class="delete-modal hidden">
       <div class="delete-box border-radius">
         <div class="row center">
-          <p class="uppercase white amaranth delete-confirmation">Are you sure you would like to delete this film?</p>
+          <p class="uppercase white pt-sans delete-confirmation">Are you sure you would like to delete this film?</p>
         </div>
         <div class="row center delete-modal-buttons">
-          <button class="uppercase white amaranth border-radius cancel-button">Cancel</button>
-          <button class="uppercase amaranth border-radius delete-button weight-600">Delete</button>
+          <button class="uppercase white pt-sans border-radius cancel-button">Cancel</button>
+          <button class="uppercase pt-sans border-radius delete-button weight-600">Delete</button>
         </div>
       </div>
     </div>

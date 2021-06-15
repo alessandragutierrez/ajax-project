@@ -16,7 +16,7 @@ header {
 .home-button,
 .watchlist-button {
   display: inline-block;
-  padding: 0.8rem 0;
+  padding: 0.4rem 0;
   margin-right: 3rem;
 }
 
@@ -28,10 +28,6 @@ header {
 .result {
   padding-top: 3rem;
 }
-
-/* .watchlist-container {
-  padding-top: 4.5rem;
-} */
 
 .container {
   background-color: white;
@@ -139,8 +135,8 @@ header {
   font-weight: 600;
 }
 
-.amaranth {
-  font-family: 'Amaranth', sans-serif;
+.pt-sans {
+  font-family: 'PT Sans', sans-serif;
 }
 
 .amiko {
