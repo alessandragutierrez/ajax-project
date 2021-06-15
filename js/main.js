@@ -25,7 +25,7 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
-$addedButton.addEventListener('click', handleAddedButtonClick);
+$addedButton.addEventListener('click', openModal);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('click', updateLabel);
@@ -80,9 +80,6 @@ function saveCurrentMovie(event) {
   currentMovie = {};
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
-}
-function handleAddedButtonClick(event) {
-  openModal();
 }
 function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
