@@ -10,18 +10,30 @@ header {
 }
 
 .nav-bar {
-  padding: 0 2.5rem;
+  padding: 0 3rem;
 }
 
 .home-button,
 .watchlist-button {
+  color: rgb(191, 191, 191);
   display: inline-block;
   padding: 0.4rem 0;
   margin-right: 3rem;
+  align-self: flex-end;
 }
 
-.underline {
-  text-decoration: underline;
+.home-button {
+  font-size: 20px;
+  padding-bottom: 0.6rem;
+}
+
+.watchlist-button {
+  font-variant: small-caps;
+  font-size: 24px;
+}
+
+.highlight {
+  color: white;
 }
 
 .home,
@@ -38,15 +50,6 @@ header {
   font-size: 2rem;
 }
 
-.spin-wheel-button {
-  background-color: white;
-}
-
-.spin-again-button,
-.add-button {
-  background-color: black;
-}
-
 .spin-wheel-button,
 .spin-again-button,
 .add-button,
@@ -56,6 +59,15 @@ header {
   width: 250px;
   padding: 8px 0;
   margin-bottom: 1.5rem;
+}
+
+.spin-wheel-button {
+  background-color: white;
+}
+
+.spin-again-button,
+.add-button {
+  background-color: black;
 }
 
 .added-button {
