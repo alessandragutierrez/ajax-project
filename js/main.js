@@ -28,7 +28,7 @@ $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', openModal);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
-$filterForm.elements.rating.addEventListener('click', updateLabel);
+$filterForm.elements.rating.addEventListener('input', updateLabel);
 
 function handleLoad(event) {
   createWatchlistEntries();
@@ -37,7 +37,7 @@ function handleLoad(event) {
   } else {
     swapViews('home');
   }
-  underline(data.view);
+  highlight(data.view);
   filterFormAnimation();
 }
 function handleNavClick(event) {
@@ -45,7 +45,7 @@ function handleNavClick(event) {
     return;
   }
   swapViews(event.target.getAttribute('data-view'));
-  underline(event.target.getAttribute('data-view'));
+  highlight(event.target.getAttribute('data-view'));
   clearResult();
   triggerNavViewsAnimations();
 }
@@ -57,6 +57,7 @@ function getMovie(event) {
   pageNumber = 1;
   requestMovie();
   swapViews('result');
+  $navBar.firstElementChild.classList.remove('highlight');
   movieResultAnimation();
 }
 function getMoreMovies(event) {
@@ -300,12 +301,12 @@ function deleteEntry(targetMovie) {
   $deleteModal.classList.add('hidden');
 }
 
-function underline(target) {
+function highlight(target) {
   for (var i = 0; i < $navBar.children.length; i++) {
     if ($navBar.children[i].getAttribute('data-view') !== target) {
-      $navBar.children[i].classList.remove('underline');
+      $navBar.children[i].classList.remove('highlight');
     } else {
-      $navBar.children[i].classList.add('underline');
+      $navBar.children[i].classList.add('highlight');
     }
   }
 }
