@@ -16,7 +16,7 @@ var movieResultArray = [];
 var alreadySeen = [];
 var formValues = {};
 var currentMovie = {};
-var deleteTarget;
+var targetMovie;
 var totalPages;
 var pageNumber;
 
@@ -25,7 +25,7 @@ $navBar.addEventListener('click', handleNavClick);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
-$addedButton.addEventListener('click', handleAddedButtonClick);
+$addedButton.addEventListener('click', openModal);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('click', updateLabel);
@@ -74,20 +74,17 @@ function getMoreMovies(event) {
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
-  var newEntry = renderMovie(currentMovie);
+  var newEntry = renderMovie(currentMovie, true);
   $watchlistContainer.appendChild(newEntry);
-  addDeleteIcon(data.entries.length - 1);
   currentMovie = {};
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
-}
-function handleAddedButtonClick(event) {
-  openModal();
 }
 function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
   }
+  targetMovie = event.target.closest('div.movie');
   openModal();
 }
 function handleModalClick(event) {
@@ -95,7 +92,7 @@ function handleModalClick(event) {
     event.target.classList.contains('cancel-button') === true) {
     $deleteModal.classList.add('hidden');
   } else if (event.target.classList.contains('delete-button') === true) {
-    deleteEntry();
+    deleteEntry(targetMovie);
   }
 }
 function updateLabel(event) {
@@ -104,15 +101,17 @@ function updateLabel(event) {
 
 function requestMovie() {
   var xhr = new XMLHttpRequest();
+  var requestUrl = '';
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    requestUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate';
   } else if (formValues.filterYear !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate');
+    requestUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&primary_release_year=' + formValues.filterYear + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate';
   } else if (formValues.filterGenre !== '') {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate');
+    requestUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_genres=' + formValues.filterGenreId + '&with_watch_monetization_types=flatrate';
   } else {
-    xhr.open('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate');
+    requestUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US&include_adult=false&include_video=false&page=' + pageNumber + '&vote_count.gte=50&vote_average.gte=' + formValues.filterRatingMin + '&with_watch_monetization_types=flatrate';
   }
+  xhr.open('GET', requestUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     totalPages = xhr.response.total_pages;
@@ -131,7 +130,7 @@ function requestMovie() {
     movieResultArray.splice(randomIndex, 1);
     alreadySeen.push(randomMovie.id);
     storeCurrentMovie(randomMovie);
-    var newMovie = renderMovie(randomMovie);
+    var newMovie = renderMovie(randomMovie, false);
     clearResult();
     $movieResultContainer.prepend(newMovie);
     checkIfAdded();
@@ -139,7 +138,7 @@ function requestMovie() {
   xhr.send();
 }
 
-function renderMovie(movie) {
+function renderMovie(movie, withDelete) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
   $movie.id = movie.id;
@@ -184,6 +183,12 @@ function renderMovie(movie) {
 
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
+
+  if (withDelete !== false) {
+    var $deleteIcon = document.createElement('span');
+    $deleteIcon.className = 'fas fa-trash';
+    $movieTitle.appendChild($deleteIcon);
+  }
 
   $movie.appendChild($imgDiv);
   $movie.appendChild($movieDesc);
@@ -265,38 +270,28 @@ function resetAddButton() {
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
-    var newEntry = renderMovie(data.entries[i]);
+    var newEntry = renderMovie(data.entries[i], true);
     $watchlistContainer.appendChild(newEntry);
-    addDeleteIcon(i);
   }
-}
-function addDeleteIcon(i) {
-  var $deleteIcon = document.createElement('span');
-  $deleteIcon.className = 'fas fa-trash';
-  var movieTitleElements = $watchlistContainer.getElementsByTagName('h1');
-  movieTitleElements[i].appendChild($deleteIcon);
 }
 function openModal() {
   $deleteModal.classList.remove('hidden');
-  deleteTarget = event.target;
+  // deleteTarget = event.target;
 }
-function deleteEntry() {
+function deleteEntry(targetMovie) {
   var i;
   if (data.view === 'watchlist') {
-    var movieTarget = deleteTarget.closest('div.movie');
-    var movieTargetID = movieTarget.getAttribute('id');
     for (i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].id === parseInt(movieTargetID)) {
+      if (data.entries[i].id === parseInt(targetMovie.getAttribute('id'))) {
         data.entries.splice(i, 1);
-        movieTarget.remove();
+        targetMovie.remove();
       }
     }
   } else if (data.view === 'result') {
     for (i = 0; i < $watchlistMovies.length; i++) {
       if (parseInt($watchlistMovies[i].id) === data.currentMovieID) {
-        movieTarget = $watchlistMovies[i];
-        movieTargetID = data.currentMovieID;
-        movieTarget.remove();
+        targetMovie = $watchlistMovies[i];
+        targetMovie.remove();
         currentMovie = data.entries[i];
         data.entries.splice(i, 1);
       }
