@@ -106,16 +106,20 @@ header {
   justify-content: space-around;
 }
 
-.cancel-button {
-  background-color: transparent;
-}
-
 .cancel-button,
 .delete-button {
   border: none;
   font-size: 18px;
   padding: 8px 20px;
   letter-spacing: 1px;
+}
+
+.cancel-button {
+  background-color: transparent;
+}
+
+.delete-button {
+  background-color: white;
 }
 
 .white {
