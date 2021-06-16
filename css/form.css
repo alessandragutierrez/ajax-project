@@ -23,10 +23,18 @@ select {
   background-color: #343434;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 8px 20px;
   font-size: 16px;
   margin-top: 10px;
   -webkit-appearance: none;
+}
+
+select {
+  background-image: url('../images/chevron-down-white.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: auto 10px;
+  background-origin: content-box;
 }
 
 input:focus,
