@@ -10,15 +10,15 @@ header {
 }
 
 .nav-bar {
-  padding: 0 3rem;
+  padding: 0 2.5rem;
 }
 
 .home-button,
 .watchlist-button {
   color: rgb(191, 191, 191);
   display: inline-block;
-  padding: 0.4rem 0;
-  margin-right: 3rem;
+  padding: 0.1rem 0 0.4rem;
+  margin-right: 2.5rem;
   align-self: flex-end;
 }
 
