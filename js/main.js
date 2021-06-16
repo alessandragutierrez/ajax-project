@@ -28,7 +28,7 @@ $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', openModal);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
-$filterForm.elements.rating.addEventListener('click', updateLabel);
+$filterForm.elements.rating.addEventListener('input', updateLabel);
 
 function handleLoad(event) {
   createWatchlistEntries();
