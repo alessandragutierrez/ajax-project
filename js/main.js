@@ -16,7 +16,7 @@ var movieResultArray = [];
 var alreadySeen = [];
 var formValues = {};
 var currentMovie = {};
-var deleteTarget;
+var targetMovie;
 var totalPages;
 var pageNumber;
 
@@ -84,6 +84,7 @@ function handleWatchlistClick(event) {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
   }
+  targetMovie = event.target.closest('div.movie');
   openModal();
 }
 function handleModalClick(event) {
@@ -91,7 +92,7 @@ function handleModalClick(event) {
     event.target.classList.contains('cancel-button') === true) {
     $deleteModal.classList.add('hidden');
   } else if (event.target.classList.contains('delete-button') === true) {
-    deleteEntry();
+    deleteEntry(targetMovie);
   }
 }
 function updateLabel(event) {
@@ -275,25 +276,22 @@ function createWatchlistEntries() {
 }
 function openModal() {
   $deleteModal.classList.remove('hidden');
-  deleteTarget = event.target;
+  // deleteTarget = event.target;
 }
-function deleteEntry() {
+function deleteEntry(targetMovie) {
   var i;
   if (data.view === 'watchlist') {
-    var movieTarget = deleteTarget.closest('div.movie');
-    var movieTargetID = movieTarget.getAttribute('id');
     for (i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].id === parseInt(movieTargetID)) {
+      if (data.entries[i].id === parseInt(targetMovie.getAttribute('id'))) {
         data.entries.splice(i, 1);
-        movieTarget.remove();
+        targetMovie.remove();
       }
     }
   } else if (data.view === 'result') {
     for (i = 0; i < $watchlistMovies.length; i++) {
       if (parseInt($watchlistMovies[i].id) === data.currentMovieID) {
-        movieTarget = $watchlistMovies[i];
-        movieTargetID = data.currentMovieID;
-        movieTarget.remove();
+        targetMovie = $watchlistMovies[i];
+        targetMovie.remove();
         currentMovie = data.entries[i];
         data.entries.splice(i, 1);
       }
