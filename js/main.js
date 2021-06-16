@@ -276,7 +276,6 @@ function createWatchlistEntries() {
 }
 function openModal() {
   $deleteModal.classList.remove('hidden');
-  // deleteTarget = event.target;
 }
 function deleteEntry(targetMovie) {
   var i;
