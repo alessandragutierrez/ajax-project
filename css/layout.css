@@ -65,6 +65,10 @@ input {
   bottom: 0;
 }
 
+.add-buttons-container {
+  margin-bottom: 1.5rem;
+}
+
 /* desktop view */
 @media screen and (min-width: 768px) {
   .container {
