@@ -350,3 +350,5 @@ function movieResultAnimation() {
 }
 
 var $trailerButton = document.querySelector('.trailer-button');
+
+$trailerButton.addEventListener('click', function () {});
