@@ -351,4 +351,15 @@ function movieResultAnimation() {
 
 var $trailerButton = document.querySelector('.trailer-button');
 
-$trailerButton.addEventListener('click', function () {});
+$trailerButton.addEventListener('click', getTrailer);
+
+function getTrailer(event) {
+  var xhr = new XMLHttpRequest();
+  var requestURL = 'https://api.themoviedb.org/3/movie/' + data.currentMovieID + '/videos?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US';
+  xhr.open('GET', requestURL);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    var videoData = xhr.response.results[0];
+  });
+  xhr.send();
+}
