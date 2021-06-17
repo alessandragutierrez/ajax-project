@@ -3,6 +3,7 @@
 var $viewElements = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
+var $trailerLink = document.querySelector('.trailer-link');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
 var $addedButton = document.querySelector('.added-button');
@@ -135,6 +136,23 @@ function requestMovie() {
     clearResult();
     $movieResultContainer.prepend(newMovie);
     checkIfAdded();
+    requestTrailer();
+  });
+  xhr.send();
+}
+function requestTrailer() {
+  var xhr = new XMLHttpRequest();
+  var requestURL = 'https://api.themoviedb.org/3/movie/' + data.currentMovieID + '/videos?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US';
+  xhr.open('GET', requestURL);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    if (!xhr.response.results.length > 0) {
+      $trailerLink.classList.add('hidden');
+      return;
+    }
+    var videoData = xhr.response.results[0];
+    $trailerLink.classList.remove('hidden');
+    $trailerLink.setAttribute('href', 'https://www.youtube.com/watch?v=' + videoData.key);
   });
   xhr.send();
 }
@@ -347,19 +365,4 @@ function watchListAnimation() {
 function movieResultAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($movieResultContainer, { duration: 0.2, scale: 0.97 });
-}
-
-var $trailerButton = document.querySelector('.trailer-button');
-
-$trailerButton.addEventListener('click', getTrailer);
-
-function getTrailer(event) {
-  var xhr = new XMLHttpRequest();
-  var requestURL = 'https://api.themoviedb.org/3/movie/' + data.currentMovieID + '/videos?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US';
-  xhr.open('GET', requestURL);
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    var videoData = xhr.response.results[0];
-  });
-  xhr.send();
 }
