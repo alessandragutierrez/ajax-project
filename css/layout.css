@@ -29,7 +29,7 @@ input {
 
 .column-full,
 .column-half,
-.column-third {
+.column-quarter {
   width: 100%;
 }
 
@@ -89,8 +89,8 @@ input {
     width: 50%;
   }
 
-  .column-third {
-    width: 33.3%;
+  .column-quarter {
+    width: 25%;
   }
 
   .filter-form {
@@ -129,6 +129,7 @@ input {
   }
 
   .spin-again-button,
+  .trailer-button,
   .add-button,
   .added-button {
     margin-top: 1rem;
