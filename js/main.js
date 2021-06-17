@@ -59,7 +59,6 @@ function getMovie(event) {
   requestMovie();
   swapViews('result');
   $navBar.firstElementChild.classList.remove('highlight');
-  movieResultAnimation();
 }
 function getMoreMovies(event) {
   if (!movieResultArray.length > 0) {
@@ -72,7 +71,6 @@ function getMoreMovies(event) {
   }
   resetAddButton();
   requestMovie();
-  movieResultAnimation();
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
@@ -361,8 +359,4 @@ function filterFormAnimation() {
 function watchListAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
-}
-function movieResultAnimation() {
-  // eslint-disable-next-line no-undef
-  gsap.from($movieResultContainer, { duration: 0.2, scale: 0.97 });
 }
