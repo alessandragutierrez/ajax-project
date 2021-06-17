@@ -201,3 +201,21 @@ header {
 .delete-button:hover {
   cursor: pointer;
 }
+
+/* Animations */
+
+.movie {
+  animation: slide-down 0.4s ease;
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0.5;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
