@@ -3,7 +3,10 @@
 }
 
 main,
-.container {
+.container,
+.home,
+.result,
+.watchlist {
   min-height: 100vh;
 }
 
@@ -34,12 +37,17 @@ input {
   width: 100%;
 }
 
-.watchlist-container {
-  padding-top: 3rem;
-}
-
 .filter-form {
   width: 325px;
+}
+
+.roulette-title-div {
+  display: none;
+}
+
+.movie-container,
+.watchlist-container {
+  padding-top: 3rem;
 }
 
 .movie {
@@ -53,6 +61,12 @@ input {
 .movie-desc {
   padding: 0 10px;
   margin-bottom: 1.5rem;
+}
+
+.spin-again-container {
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
 }
 
 /* desktop view */
@@ -79,16 +93,25 @@ input {
     width: 33.3%;
   }
 
-  .watchlist-container {
-    padding-top: 4.5rem;
-  }
-
   .filter-form {
     width: 400px;
   }
 
+  .result {
+    padding-top: 3rem;
+  }
+
+  .roulette-title-div {
+    display: block;
+  }
+
+  .watchlist-container {
+    padding-top: 4.5rem;
+  }
+
   .movie {
     padding-bottom: 20px;
+    height: 100%;
   }
 
   .img-div {
@@ -107,5 +130,9 @@ input {
 
   .added-button {
     margin-left: 0.7rem;
+  }
+
+  .spin-again-container {
+    position: static;
   }
 }
