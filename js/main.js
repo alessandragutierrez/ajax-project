@@ -348,3 +348,5 @@ function movieResultAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($movieResultContainer, { duration: 0.2, scale: 0.97 });
 }
+
+var $trailerButton = document.querySelector('.trailer-button');
