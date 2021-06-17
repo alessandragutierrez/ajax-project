@@ -2,11 +2,7 @@
   display: none !important;
 }
 
-main,
-.container,
-.home,
-.result,
-.watchlist {
+.container {
   min-height: 100vh;
 }
 
@@ -98,15 +94,21 @@ input {
   }
 
   .result {
-    padding-top: 3rem;
+    padding-top: 6rem;
   }
 
   .roulette-title-div {
     display: block;
+    background: black;
+    position: absolute;
+    top: 30px;
+    padding-top: 18px;
+    left: 0;
+    width: 100%;
   }
 
   .watchlist-container {
-    padding-top: 4.5rem;
+    padding-top: 4rem;
   }
 
   .movie {

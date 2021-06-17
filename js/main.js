@@ -346,5 +346,5 @@ function watchListAnimation() {
 }
 function movieResultAnimation() {
   // eslint-disable-next-line no-undef
-  gsap.from($movieResultContainer, { duration: 0.5, scale: 0.97 });
+  gsap.from($movieResultContainer, { duration: 0.2, scale: 0.97 });
 }
