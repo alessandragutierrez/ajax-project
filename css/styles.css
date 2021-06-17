@@ -51,27 +51,45 @@ header {
 
 .spin-wheel-button,
 .spin-again-button,
+.trailer-button,
 .add-button,
 .added-button {
   border: none;
   font-size: 1.3rem;
-  width: 250px;
   padding: 8px 0;
   margin-bottom: 1.5rem;
 }
 
-.spin-wheel-button {
-  background-color: white;
+.spin-again-button,
+.trailer-button,
+.add-button,
+.added-button {
+  width: 200px;
 }
 
 .spin-again-button,
+.trailer-button,
 .add-button {
   background-color: black;
 }
 
+.spin-wheel-button {
+  width: 250px;
+  background-color: white;
+}
+
 .added-button {
   background-color: transparent;
-  width: 300px;
+}
+
+.fa-play,
+.fa-plus {
+  color: white;
+  padding-right: 10px;
+}
+
+.fa-play {
+  font-size: 16px;
 }
 
 .fa-check-circle {
@@ -175,6 +193,7 @@ header {
 .watchlist-button:hover,
 .spin-wheel-button:hover,
 .spin-again-button:hover,
+.trailer-button:hover,
 .add-button:hover,
 .added-button:hover,
 .fa-trash:hover,
