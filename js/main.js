@@ -3,6 +3,7 @@
 var $viewElements = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
+var $backButton = document.querySelector('.back-button');
 var $trailerLink = document.querySelector('.trailer-link');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
@@ -23,8 +24,10 @@ var pageNumber;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
-document.addEventListener('keydown', submitForm);
+$backButton.addEventListener('click', goBack);
+document.addEventListener('keydown', goBackKeyEvent);
 $spin.addEventListener('click', getMovie);
+document.addEventListener('keydown', getMovieKeyEvent);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', openModal);
@@ -48,10 +51,29 @@ function handleNavClick(event) {
   }
   swapViews(event.target.getAttribute('data-view'));
   highlight(event.target.getAttribute('data-view'));
-  clearResult();
+  if (data.view === 'home') {
+    clearForm();
+  }
   triggerNavViewsAnimations();
 }
-function submitForm(event) {
+function goBack(event) {
+  swapViews('home');
+  highlight('home');
+  $filterForm.elements.year.value = formValues.filterYear;
+  $filterForm.elements.genre.value = formValues.filterGenreId;
+  $filterForm.elements.rating.value = formValues.filterRatingMin;
+  updateLabel(event);
+}
+function goBackKeyEvent(event) {
+  if (event.key !== 'Backspace') {
+    return;
+  }
+  if (data.view !== 'result') {
+    return;
+  }
+  goBack(event);
+}
+function getMovieKeyEvent(event) {
   if (event.key !== 'Enter') {
     return;
   }
@@ -376,7 +398,3 @@ function watchListAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
 }
-
-var $backButton = document.querySelector('.back-button');
-$backButton.addEventListener('click', goBack);
-function goBack(event) {}
