@@ -376,3 +376,7 @@ function watchListAnimation() {
   // eslint-disable-next-line no-undef
   gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
 }
+
+var $backButton = document.querySelector('.back-button');
+$backButton.addEventListener('click', goBack);
+function goBack(event) {}
