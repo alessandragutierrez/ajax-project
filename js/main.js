@@ -23,6 +23,7 @@ var pageNumber;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
+document.addEventListener('keydown', submitForm);
 $spin.addEventListener('click', getMovie);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
@@ -50,7 +51,18 @@ function handleNavClick(event) {
   clearResult();
   triggerNavViewsAnimations();
 }
+function submitForm(event) {
+  if (event.key !== 'Enter') {
+    return;
+  }
+  if (data.view === 'home') {
+    getMovie(event);
+  } else if (data.view === 'result') {
+    getMoreMovies(event);
+  }
+}
 function getMovie(event) {
+  event.preventDefault();
   alreadySeen = [];
   resetAddButton();
   saveFormValues();

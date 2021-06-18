@@ -49,6 +49,10 @@ header {
   font-size: 2rem;
 }
 
+.spin-wheel-container {
+  margin-top: 3rem;
+}
+
 .spin-wheel-button,
 .spin-again-button,
 .trailer-button,
