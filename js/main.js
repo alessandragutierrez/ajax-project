@@ -86,7 +86,7 @@ function getMoreMovies(event) {
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
-  var newEntry = renderMovie(currentMovie, true);
+  var newEntry = renderMovie(currentMovie, false, true);
   $watchlistContainer.appendChild(newEntry);
   currentMovie = {};
   $addButton.classList.add('hidden');
@@ -142,7 +142,7 @@ function requestMovie() {
     movieResultArray.splice(randomIndex, 1);
     alreadySeen.push(randomMovie.id);
     storeCurrentMovie(randomMovie);
-    var newMovie = renderMovie(randomMovie, false);
+    var newMovie = renderMovie(randomMovie, true, false);
     clearResult();
     $movieResultContainer.prepend(newMovie);
     checkIfAdded();
@@ -167,7 +167,7 @@ function requestTrailer() {
   xhr.send();
 }
 
-function renderMovie(movie, withDelete) {
+function renderMovie(movie, isResult, withDelete) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
   $movie.id = movie.id;
@@ -212,6 +212,10 @@ function renderMovie(movie, withDelete) {
 
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
+
+  if (isResult !== false) {
+    $movie.classList.add('movie-result');
+  }
 
   if (withDelete !== false) {
     var $deleteIcon = document.createElement('span');
@@ -299,7 +303,7 @@ function resetAddButton() {
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
-    var newEntry = renderMovie(data.entries[i], true);
+    var newEntry = renderMovie(data.entries[i], false, true);
     $watchlistContainer.appendChild(newEntry);
   }
 }

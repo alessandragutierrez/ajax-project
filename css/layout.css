@@ -2,8 +2,13 @@
   display: none !important;
 }
 
-.container {
+main,
+.home {
   min-height: 100vh;
+}
+
+.container {
+  padding: 0 1.5rem;
 }
 
 .row {
@@ -19,12 +24,19 @@ input {
   width: 100%;
 }
 
+.result-column-10 {
+  width: 10%;
+}
+
+.result-column-80 {
+  width: 80%;
+}
+
 /* mobile view */
-.container,
-.nav-bar {
+.nav-bar,
+main {
   max-width: 575px;
   margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
 .column-full,
@@ -34,20 +46,27 @@ input {
 }
 
 .filter-form {
-  width: 325px;
+  width: 300px;
 }
 
-.roulette-title-div {
-  display: none;
+.result-heading {
+  padding: 3rem 2.5rem 0.2rem;
 }
 
-.movie-container,
+.result-roulette-title,
+.fa-arrow-left {
+  font-size: 1.4rem;
+}
+
 .watchlist-container {
-  padding-top: 3rem;
+  padding-top: 2.5rem;
 }
 
 .movie {
   padding-top: 15px;
+}
+
+.movie-result {
   animation: fade-in 0.4s ease;
 }
 
@@ -70,15 +89,23 @@ input {
   margin-bottom: 3rem;
 }
 
+.spin-wheel-button,
+.spin-again-button,
+.trailer-button,
+.add-button,
+.added-button {
+  width: 225px;
+}
+
 /* desktop view */
 @media screen and (min-width: 768px) {
-  .container {
-    padding: 30px 0;
+  .nav-bar,
+  main {
+    max-width: 900px;
   }
 
-  .container,
-  .nav-bar {
-    max-width: 900px;
+  .container {
+    padding: 30px 0;
   }
 
   .column-full,
@@ -98,18 +125,13 @@ input {
     width: 400px;
   }
 
-  .result {
-    padding-top: 6rem;
+  .result-heading {
+    padding: 4rem 2.5rem 1rem;
   }
 
-  .roulette-title-div {
-    display: block;
-    background: black;
-    position: absolute;
-    top: 30px;
-    padding-top: 18px;
-    left: 0;
-    width: 100%;
+  .result-roulette-title,
+  .fa-arrow-left {
+    font-size: 2rem;
   }
 
   .watchlist-container {
@@ -119,6 +141,9 @@ input {
   .movie {
     padding-bottom: 20px;
     height: 100%;
+  }
+
+  .movie-result {
     animation: slide-down 0.4s ease;
   }
 
@@ -130,18 +155,19 @@ input {
     padding-left: 40px;
   }
 
+  .spin-again-container {
+    position: static;
+  }
+
   .spin-again-button,
   .trailer-button,
   .add-button,
   .added-button {
     margin-top: 1rem;
+    width: 190px;
   }
 
   .added-button {
     margin-left: 0.7rem;
-  }
-
-  .spin-again-container {
-    position: static;
   }
 }

@@ -24,7 +24,7 @@
   <main>
     <div data-view="home" class="view home">
       <div class="row center">
-        <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
+        <h1 class="home-roulette-title white uppercase center amiko">Film Roulette</h1>
       </div>
       <form class="filter-form">
         <h3 class="white uppercase center pt-sans weight-600 form-title">Filter Results</h3>
@@ -73,21 +73,26 @@
         </div>
       </form>
     </div>
-    <div data-view="result" class="view container result hidden">
-      <div class="row center roulette-title-div">
-        <h1 class="roulette-title white uppercase center amiko">Film Roulette</h1>
+    <div data-view="result" class="view result hidden">
+      <div class="row result-heading">
+        <div class="result-column-10 back-button-container">
+          <div class="white fas fa-arrow-left"></div>
+        </div>
+        <div class="result-column-80">
+          <h1 class="result-roulette-title white uppercase center amiko">Film Roulette</h1>
+        </div>
       </div>
-      <div class="row center movie-container">
-          <div class="column-quarter spin-again-container">
-            <button data-view="results" class="uppercase white amiko border-radius spin-again-button">Spin Again</button>
-          </div>
-          <div class="column-quarter">
-            <a target="_blank" rel="noopener noreferrer" class="trailer-link"><button class="uppercase white amiko border-radius trailer-button"><i class="fas fa-play"></i>Trailer</button></a>
-          </div>
-          <div class="column-quarter add-buttons-container">
-            <button class="uppercase white amiko border-radius add-button hidden"><i class="fas fa-plus"></i>Watchlist</button>
-            <button class="uppercase amiko border-radius weight-600 added-button"><i class="fas fa-check-circle"></i>In Watchlist</button>
-          </div>
+      <div class="row center container movie-container">
+        <div class="column-quarter spin-again-container">
+          <button data-view="results" class="uppercase white amiko border-radius spin-again-button">Spin Again</button>
+        </div>
+        <div class="column-quarter">
+          <a target="_blank" rel="noopener noreferrer" class="trailer-link"><button class="uppercase white amiko border-radius trailer-button"><i class="fas fa-play"></i>Trailer</button></a>
+        </div>
+        <div class="column-quarter add-buttons-container">
+          <button class="uppercase white amiko border-radius add-button hidden"><i class="fas fa-plus"></i>Watchlist</button>
+          <button class="uppercase amiko border-radius weight-600 added-button"><i class="fas fa-check-circle"></i>In Watchlist</button>
+        </div>
       </div>
     </div>
     <div data-view="watchlist" class="view hidden">
