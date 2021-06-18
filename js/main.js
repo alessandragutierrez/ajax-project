@@ -31,6 +31,7 @@ document.addEventListener('keydown', getMovieKeyEvent);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', openModal);
+var $watchlistEmpty = document.querySelector('.watchlist-empty');
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('input', updateLabel);
@@ -41,6 +42,9 @@ function handleLoad(event) {
     swapViews(data.view);
   } else {
     swapViews('home');
+  }
+  if (data.entries.length > 0) {
+    hideWatchlistEmpty();
   }
   highlight(data.view);
   filterFormAnimation();
@@ -109,6 +113,7 @@ function getMoreMovies(event) {
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
   var newEntry = renderMovie(currentMovie, false, true);
+  hideWatchlistEmpty();
   $watchlistContainer.appendChild(newEntry);
   currentMovie = {};
   $addButton.classList.add('hidden');
@@ -352,6 +357,9 @@ function deleteEntry(targetMovie) {
     }
     resetAddButton();
   }
+  if (!data.entries.length > 0) {
+    $watchlistEmpty.classList.remove('hidden');
+  }
   $deleteModal.classList.add('hidden');
 }
 
@@ -364,7 +372,6 @@ function highlight(target) {
     }
   }
 }
-
 function swapViews(view) {
   for (var i = 0; i < $viewElements.length; i++) {
     if ($viewElements[i].getAttribute('data-view') !== view) {
@@ -375,7 +382,9 @@ function swapViews(view) {
     }
   }
 }
-
+function hideWatchlistEmpty() {
+  $watchlistEmpty.classList.add('hidden');
+}
 function clearResult() {
   if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
     return;

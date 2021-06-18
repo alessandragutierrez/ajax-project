@@ -232,3 +232,8 @@ main {
     transform: translateY(0);
   }
 }
+
+.watchlist-empty {
+  font-size: 18px;
+  padding: 2rem 0;
+}
