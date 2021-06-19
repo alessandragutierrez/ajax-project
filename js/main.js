@@ -201,6 +201,7 @@ function renderMovie(movie, isResult, withDelete) {
 
   var $movieDesc = document.createElement('div');
   $movieDesc.className = 'column-half movie-desc';
+  $movieDesc.style.wordBreak = 'break-word';
 
   var $img = document.createElement('img');
   $img.className = 'border-radius';

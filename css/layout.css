@@ -32,7 +32,7 @@ input {
   width: 80%;
 }
 
-span {
+.break-word {
   overflow-wrap: break-word;
 }
 
