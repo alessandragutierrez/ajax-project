@@ -49,21 +49,26 @@ main {
   width: 100%;
 }
 
+header {
+  top: auto;
+  bottom: 0;
+}
+
+.home {
+  padding-top: 1rem;
+}
+
 .filter-form {
   width: 300px;
 }
 
 .result-heading {
-  padding: 3rem 2.5rem 0.2rem;
+  padding: 0.5rem 2.5rem 0.2rem;
 }
 
 .result-roulette-title,
 .fa-arrow-left {
   font-size: 1.4rem;
-}
-
-.watchlist-container {
-  padding-top: 2.5rem;
 }
 
 .movie {
@@ -86,7 +91,8 @@ main {
 .spin-again-container {
   position: sticky;
   position: -webkit-sticky;
-  bottom: 1.5rem;
+  bottom: 2.5rem;
+  z-index: 5;
 }
 
 .add-buttons-container {
@@ -123,6 +129,15 @@ main {
 
   .column-quarter {
     width: 25%;
+  }
+
+  header {
+    top: 0;
+    bottom: auto;
+  }
+
+  .home {
+    padding-top: 3rem;
   }
 
   .filter-form {

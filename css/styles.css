@@ -41,7 +41,6 @@ main {
 }
 
 .home {
-  padding-top: 3rem;
   background-color: black;
 }
 
@@ -155,6 +154,11 @@ main {
   background-color: white;
 }
 
+.watchlist-empty {
+  font-size: 18px;
+  padding: 3rem 0;
+}
+
 .white {
   color: white;
 }
@@ -231,9 +235,4 @@ main {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.watchlist-empty {
-  font-size: 18px;
-  padding: 2rem 0;
 }
