@@ -69,10 +69,7 @@ function goBack(event) {
   updateLabel(event);
 }
 function goBackKeyEvent(event) {
-  if (event.key !== 'Backspace') {
-    return;
-  }
-  if (data.view !== 'result') {
+  if (event.key !== 'Backspace' || data.view !== 'result') {
     return;
   }
   goBack(event);
@@ -240,11 +237,11 @@ function renderMovie(movie, isResult, withDelete) {
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
 
-  if (isResult !== false) {
+  if (isResult) {
     $movie.classList.add('movie-result');
   }
 
-  if (withDelete !== false) {
+  if (withDelete) {
     var $deleteIcon = document.createElement('span');
     $deleteIcon.className = 'fas fa-trash';
     $movieTitle.appendChild($deleteIcon);
@@ -357,7 +354,7 @@ function deleteEntry(targetMovie) {
     }
     resetAddButton();
   }
-  if (!data.entries.length > 0) {
+  if (!data.entries.length) {
     $watchlistEmpty.classList.remove('hidden');
   }
   $deleteModal.classList.add('hidden');
