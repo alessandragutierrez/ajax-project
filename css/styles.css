@@ -36,17 +36,29 @@ header {
   color: white;
 }
 
-.home {
-  padding-top: 3rem;
-}
-
-.container {
+main {
   background-color: white;
 }
 
-.roulette-title {
+.home {
+  padding-top: 3rem;
+  background-color: black;
+}
+
+.home-roulette-title {
   margin: 1rem 0;
-  font-size: 2rem;
+}
+
+.result-heading {
+  background-color: black;
+}
+
+.back-button-container {
+  align-self: center;
+}
+
+.spin-wheel-container {
+  margin-top: 3rem;
 }
 
 .spin-wheel-button,
@@ -60,22 +72,14 @@ header {
   margin-bottom: 1.5rem;
 }
 
-.spin-again-button,
-.trailer-button,
-.add-button,
-.added-button {
-  width: 200px;
+.spin-wheel-button {
+  background-color: white;
 }
 
 .spin-again-button,
 .trailer-button,
 .add-button {
   background-color: black;
-}
-
-.spin-wheel-button {
-  width: 250px;
-  background-color: white;
 }
 
 .added-button {
@@ -191,6 +195,7 @@ header {
 
 .home-button:hover,
 .watchlist-button:hover,
+.back-button,
 .spin-wheel-button:hover,
 .spin-again-button:hover,
 .trailer-button:hover,
@@ -207,10 +212,12 @@ header {
 @keyframes fade-in {
   0% {
     opacity: 0.5;
+    transform: scale(0.97);
   }
 
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -224,4 +231,9 @@ header {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.watchlist-empty {
+  font-size: 18px;
+  padding: 2rem 0;
 }

@@ -3,6 +3,7 @@
 var $viewElements = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.nav-bar');
 var $spin = document.querySelector('.spin-wheel-button');
+var $backButton = document.querySelector('.back-button');
 var $trailerLink = document.querySelector('.trailer-link');
 var $spinAgain = document.querySelector('.spin-again-button');
 var $addButton = document.querySelector('.add-button');
@@ -23,10 +24,14 @@ var pageNumber;
 
 window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
+$backButton.addEventListener('click', goBack);
+document.addEventListener('keydown', goBackKeyEvent);
 $spin.addEventListener('click', getMovie);
+document.addEventListener('keydown', getMovieKeyEvent);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
 $addedButton.addEventListener('click', openModal);
+var $watchlistEmpty = document.querySelector('.watchlist-empty');
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('input', updateLabel);
@@ -38,6 +43,9 @@ function handleLoad(event) {
   } else {
     swapViews('home');
   }
+  if (data.entries.length > 0) {
+    hideWatchlistEmpty();
+  }
   highlight(data.view);
   filterFormAnimation();
 }
@@ -47,10 +55,37 @@ function handleNavClick(event) {
   }
   swapViews(event.target.getAttribute('data-view'));
   highlight(event.target.getAttribute('data-view'));
-  clearResult();
+  if (data.view === 'home') {
+    clearForm();
+  }
   triggerNavViewsAnimations();
 }
+function goBack(event) {
+  swapViews('home');
+  highlight('home');
+  $filterForm.elements.year.value = formValues.filterYear;
+  $filterForm.elements.genre.value = formValues.filterGenreId;
+  $filterForm.elements.rating.value = formValues.filterRatingMin;
+  updateLabel(event);
+}
+function goBackKeyEvent(event) {
+  if (event.key !== 'Backspace' || data.view !== 'result') {
+    return;
+  }
+  goBack(event);
+}
+function getMovieKeyEvent(event) {
+  if (event.key !== 'Enter') {
+    return;
+  }
+  if (data.view === 'home') {
+    getMovie(event);
+  } else if (data.view === 'result') {
+    getMoreMovies(event);
+  }
+}
 function getMovie(event) {
+  event.preventDefault();
   alreadySeen = [];
   resetAddButton();
   saveFormValues();
@@ -74,7 +109,8 @@ function getMoreMovies(event) {
 }
 function saveCurrentMovie(event) {
   data.entries.push(currentMovie);
-  var newEntry = renderMovie(currentMovie, true);
+  var newEntry = renderMovie(currentMovie, false, true);
+  hideWatchlistEmpty();
   $watchlistContainer.appendChild(newEntry);
   currentMovie = {};
   $addButton.classList.add('hidden');
@@ -130,7 +166,7 @@ function requestMovie() {
     movieResultArray.splice(randomIndex, 1);
     alreadySeen.push(randomMovie.id);
     storeCurrentMovie(randomMovie);
-    var newMovie = renderMovie(randomMovie, false);
+    var newMovie = renderMovie(randomMovie, true, false);
     clearResult();
     $movieResultContainer.prepend(newMovie);
     checkIfAdded();
@@ -155,7 +191,7 @@ function requestTrailer() {
   xhr.send();
 }
 
-function renderMovie(movie, withDelete) {
+function renderMovie(movie, isResult, withDelete) {
   var $movie = document.createElement('div');
   $movie.className = 'row center movie';
   $movie.id = movie.id;
@@ -201,7 +237,11 @@ function renderMovie(movie, withDelete) {
   var $plotSummary = document.createElement('p');
   $plotSummary.textContent = movie.overview;
 
-  if (withDelete !== false) {
+  if (isResult) {
+    $movie.classList.add('movie-result');
+  }
+
+  if (withDelete) {
     var $deleteIcon = document.createElement('span');
     $deleteIcon.className = 'fas fa-trash';
     $movieTitle.appendChild($deleteIcon);
@@ -287,7 +327,7 @@ function resetAddButton() {
 
 function createWatchlistEntries() {
   for (var i = 0; i < data.entries.length; i++) {
-    var newEntry = renderMovie(data.entries[i], true);
+    var newEntry = renderMovie(data.entries[i], false, true);
     $watchlistContainer.appendChild(newEntry);
   }
 }
@@ -314,6 +354,9 @@ function deleteEntry(targetMovie) {
     }
     resetAddButton();
   }
+  if (!data.entries.length) {
+    $watchlistEmpty.classList.remove('hidden');
+  }
   $deleteModal.classList.add('hidden');
 }
 
@@ -326,7 +369,6 @@ function highlight(target) {
     }
   }
 }
-
 function swapViews(view) {
   for (var i = 0; i < $viewElements.length; i++) {
     if ($viewElements[i].getAttribute('data-view') !== view) {
@@ -337,7 +379,9 @@ function swapViews(view) {
     }
   }
 }
-
+function hideWatchlistEmpty() {
+  $watchlistEmpty.classList.add('hidden');
+}
 function clearResult() {
   if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
     return;
