@@ -1,23 +1,23 @@
 /* exported data */
 /* exported genres */
 
-var data = {
+let data = {
   view: 'home',
   entries: [],
   currentMovieID: null
 };
 
-var previousEntriesJSON = localStorage.getItem('watchlist-data');
+const previousEntriesJSON = localStorage.getItem('watchlist-data');
 if (previousEntriesJSON !== null) {
   data = JSON.parse(previousEntriesJSON);
 }
 
 window.addEventListener('beforeunload', function (event) {
-  var newEntryJSON = JSON.stringify(data);
+  const newEntryJSON = JSON.stringify(data);
   localStorage.setItem('watchlist-data', newEntryJSON);
 });
 
-var genres = [
+const genres = [
   { id: 28, name: 'Action' },
   { id: 12, name: 'Adventure' },
   { id: 16, name: 'Animation' },
