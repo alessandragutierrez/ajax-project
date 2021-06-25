@@ -12,6 +12,7 @@ const $filterForm = document.querySelector('.filter-form');
 const $ratingLabel = document.querySelector('.rating');
 const $movieResultContainer = document.querySelector('.movie-container');
 const $watchlistContainer = document.querySelector('.watchlist-container');
+const $watchlistEmpty = document.querySelector('.watchlist-empty');
 const $watchlistMovies = $watchlistContainer.getElementsByClassName('movie');
 const $deleteModal = document.querySelector('.delete-modal');
 const formValues = {};
@@ -22,21 +23,7 @@ let targetMovie;
 let totalPages;
 let pageNumber;
 
-window.addEventListener('DOMContentLoaded', handleLoad);
-$navBar.addEventListener('click', handleNavClick);
-$backButton.addEventListener('click', goBack);
-document.addEventListener('keydown', goBackKeyEvent);
-$spin.addEventListener('click', getMovie);
-document.addEventListener('keydown', getMovieKeyEvent);
-$spinAgain.addEventListener('click', getMoreMovies);
-$addButton.addEventListener('click', saveCurrentMovie);
-$addedButton.addEventListener('click', openModal);
-const $watchlistEmpty = document.querySelector('.watchlist-empty');
-$watchlistContainer.addEventListener('click', handleWatchlistClick);
-$deleteModal.addEventListener('click', handleModalClick);
-$filterForm.elements.rating.addEventListener('input', updateLabel);
-
-function handleLoad(event) {
+const handleLoad = event => {
   createWatchlistEntries();
   if (data.view !== 'result') {
     swapViews(data.view);
@@ -48,8 +35,8 @@ function handleLoad(event) {
   }
   highlight(data.view);
   filterFormAnimation();
-}
-function handleNavClick(event) {
+};
+const handleNavClick = event => {
   if (event.target.classList.contains('nav') !== true) {
     return;
   }
@@ -59,22 +46,22 @@ function handleNavClick(event) {
     clearForm();
   }
   triggerNavViewsAnimations();
-}
-function goBack(event) {
+};
+const goBack = event => {
   swapViews('home');
   highlight('home');
   $filterForm.elements.year.value = formValues.filterYear;
   $filterForm.elements.genre.value = formValues.filterGenreId;
   $filterForm.elements.rating.value = formValues.filterRatingMin;
   updateLabel(event);
-}
-function goBackKeyEvent(event) {
+};
+const goBackKeyEvent = event => {
   if (event.key !== 'Backspace' || data.view !== 'result') {
     return;
   }
   goBack(event);
-}
-function getMovieKeyEvent(event) {
+};
+const getMovieKeyEvent = event => {
   if (event.key !== 'Enter') {
     return;
   }
@@ -83,8 +70,8 @@ function getMovieKeyEvent(event) {
   } else if (data.view === 'result') {
     getMoreMovies(event);
   }
-}
-function getMovie(event) {
+};
+const getMovie = event => {
   event.preventDefault();
   alreadySeen = [];
   resetAddButton();
@@ -94,8 +81,8 @@ function getMovie(event) {
   requestMovie();
   swapViews('result');
   $navBar.firstElementChild.classList.remove('highlight');
-}
-function getMoreMovies(event) {
+};
+const getMoreMovies = event => {
   if (!movieResultArray.length > 0) {
     pageNumber++;
     alreadySeen = [];
@@ -106,8 +93,8 @@ function getMoreMovies(event) {
   }
   resetAddButton();
   requestMovie();
-}
-function saveCurrentMovie(event) {
+};
+const saveCurrentMovie = event => {
   data.entries.push(currentMovie);
   const newEntry = renderMovie(currentMovie, false, true);
   hideWatchlistEmpty();
@@ -115,27 +102,27 @@ function saveCurrentMovie(event) {
   currentMovie = {};
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
-}
-function handleWatchlistClick(event) {
+};
+const handleWatchlistClick = event => {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
   }
   targetMovie = event.target.closest('div.movie');
   openModal();
-}
-function handleModalClick(event) {
+};
+const handleModalClick = event => {
   if (event.target.classList.contains('delete-modal') === true ||
     event.target.classList.contains('cancel-button') === true) {
     $deleteModal.classList.add('hidden');
   } else if (event.target.classList.contains('delete-button') === true) {
     deleteEntry(targetMovie);
   }
-}
-function updateLabel(event) {
+};
+const updateLabel = event => {
   $ratingLabel.textContent = 'Rating ' + ' ( ' + $filterForm.elements.rating.value + ' & up )';
-}
+};
 
-function requestMovie() {
+const requestMovie = () => {
   const xhr = new XMLHttpRequest();
   let requestUrl = '';
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
@@ -149,7 +136,7 @@ function requestMovie() {
   }
   xhr.open('GET', requestUrl);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
+  xhr.addEventListener('load', () => {
     totalPages = xhr.response.total_pages;
     movieResultArray = xhr.response.results;
     if (alreadySeen.length > 0) {
@@ -173,13 +160,13 @@ function requestMovie() {
     requestTrailer();
   });
   xhr.send();
-}
-function requestTrailer() {
+};
+const requestTrailer = () => {
   const xhr = new XMLHttpRequest();
   const requestURL = 'https://api.themoviedb.org/3/movie/' + data.currentMovieID + '/videos?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US';
   xhr.open('GET', requestURL);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
+  xhr.addEventListener('load', () => {
     if (!xhr.response.results.length > 0) {
       $trailerLink.classList.add('hidden');
       return;
@@ -189,9 +176,9 @@ function requestTrailer() {
     $trailerLink.setAttribute('href', 'https://www.youtube.com/watch?v=' + videoData.key);
   });
   xhr.send();
-}
+};
 
-function renderMovie(movie, isResult, withDelete) {
+const renderMovie = (movie, isResult, withDelete) => {
   const $movie = document.createElement('div');
   $movie.className = 'row center movie';
   $movie.id = movie.id;
@@ -263,8 +250,8 @@ function renderMovie(movie, isResult, withDelete) {
   $genreDiv.appendChild($genreContent);
   $movieDesc.appendChild($plotSummary);
   return $movie;
-}
-function storeCurrentMovie(movie) {
+};
+const storeCurrentMovie = movie => {
   currentMovie.id = movie.id;
   currentMovie.poster_path = movie.poster_path;
   currentMovie.title = movie.title;
@@ -273,15 +260,15 @@ function storeCurrentMovie(movie) {
   currentMovie.genre_ids = movie.genre_ids;
   currentMovie.overview = movie.overview;
   data.currentMovieID = movie.id;
-}
-function findYear(movie) {
+};
+const findYear = movie => {
   let year = '';
   for (let i = 0; i < 4; i++) {
     year += movie.charAt(i);
   }
   return year;
-}
-function findGenre(movie) {
+};
+const findGenre = movie => {
   let movieGenres = '';
   for (let i = 0; i < movie.length - 1; i++) {
     const genreID = movie[i];
@@ -298,44 +285,44 @@ function findGenre(movie) {
     }
   }
   return movieGenres;
-}
+};
 
-function saveFormValues() {
+const saveFormValues = () => {
   formValues.filterYear = $filterForm.elements.year.value;
   formValues.filterGenreId = $filterForm.elements.genre.value;
   formValues.filterRatingMin = $filterForm.elements.rating.value;
   return formValues;
-}
-function clearForm() {
+};
+const clearForm = () => {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
   $filterForm.elements.rating.value = '0';
   $ratingLabel.textContent = 'Rating';
-}
+};
 
-function checkIfAdded() {
+const checkIfAdded = () => {
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].id === currentMovie.id) {
       $addButton.classList.add('hidden');
       $addedButton.classList.remove('hidden');
     }
   }
-}
-function resetAddButton() {
+};
+const resetAddButton = () => {
   $addButton.classList.remove('hidden');
   $addedButton.classList.add('hidden');
-}
+};
 
-function createWatchlistEntries() {
+const createWatchlistEntries = () => {
   for (let i = 0; i < data.entries.length; i++) {
     const newEntry = renderMovie(data.entries[i], false, true);
     $watchlistContainer.appendChild(newEntry);
   }
-}
-function openModal() {
+};
+const openModal = () => {
   $deleteModal.classList.remove('hidden');
-}
-function deleteEntry(targetMovie) {
+};
+const deleteEntry = targetMovie => {
   let i;
   if (data.view === 'watchlist') {
     for (i = 0; i < data.entries.length; i++) {
@@ -359,9 +346,9 @@ function deleteEntry(targetMovie) {
     $watchlistEmpty.classList.remove('hidden');
   }
   $deleteModal.classList.add('hidden');
-}
+};
 
-function highlight(target) {
+const highlight = target => {
   for (let i = 0; i < $navBar.children.length; i++) {
     if ($navBar.children[i].getAttribute('data-view') !== target) {
       $navBar.children[i].classList.remove('highlight');
@@ -369,8 +356,8 @@ function highlight(target) {
       $navBar.children[i].classList.add('highlight');
     }
   }
-}
-function swapViews(view) {
+};
+const swapViews = view => {
   for (let i = 0; i < $viewElements.length; i++) {
     if ($viewElements[i].getAttribute('data-view') !== view) {
       $viewElements[i].classList.add('hidden');
@@ -379,29 +366,42 @@ function swapViews(view) {
       data.view = view;
     }
   }
-}
-function hideWatchlistEmpty() {
+};
+const hideWatchlistEmpty = () => {
   $watchlistEmpty.classList.add('hidden');
-}
-function clearResult() {
+};
+const clearResult = () => {
   if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
     return;
   }
   $movieResultContainer.firstElementChild.remove();
-}
+};
 
-function triggerNavViewsAnimations() {
+const triggerNavViewsAnimations = () => {
   if (data.view === 'home') {
     filterFormAnimation();
   } else if (data.view === 'watchlist') {
     watchListAnimation();
   }
-}
-function filterFormAnimation() {
+};
+const filterFormAnimation = () => {
   // eslint-disable-next-line no-undef
   gsap.from($filterForm, { duration: 0.5, opacity: 0 });
-}
-function watchListAnimation() {
+};
+const watchListAnimation = () => {
   // eslint-disable-next-line no-undef
   gsap.from($watchlistContainer, { duration: 0.5, y: 30 });
-}
+};
+
+window.addEventListener('DOMContentLoaded', handleLoad);
+$navBar.addEventListener('click', handleNavClick);
+$backButton.addEventListener('click', goBack);
+document.addEventListener('keydown', goBackKeyEvent);
+$spin.addEventListener('click', getMovie);
+document.addEventListener('keydown', getMovieKeyEvent);
+$spinAgain.addEventListener('click', getMoreMovies);
+$addButton.addEventListener('click', saveCurrentMovie);
+$addedButton.addEventListener('click', openModal);
+$watchlistContainer.addEventListener('click', handleWatchlistClick);
+$deleteModal.addEventListener('click', handleModalClick);
+$filterForm.elements.rating.addEventListener('input', updateLabel);
