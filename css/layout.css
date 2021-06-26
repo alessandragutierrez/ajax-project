@@ -64,11 +64,18 @@ header {
 
 .result-heading {
   padding: 0.5rem 2.5rem 0.2rem;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
 }
 
 .result-roulette-title,
 .fa-arrow-left {
   font-size: 1.4rem;
+}
+
+.movie-container {
+  padding-top: 2.5rem;
 }
 
 .movie {
@@ -146,6 +153,7 @@ header {
 
   .result-heading {
     padding: 4rem 2.5rem 1rem;
+    position: static;
   }
 
   .result-roulette-title,
@@ -154,7 +162,7 @@ header {
   }
 
   .watchlist-container {
-    padding-top: 4rem;
+    padding-top: 4.5rem;
   }
 
   .movie {
