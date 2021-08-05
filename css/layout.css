@@ -62,11 +62,18 @@ header {
   width: 300px;
 }
 
-.result-heading {
+.result-heading-container {
   padding: 0.5rem 2.5rem 0.2rem;
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
   z-index: 5;
+  width: 100%;
+}
+
+.result-heading {
+  max-width: 500px;
+  margin: auto;
 }
 
 .result-roulette-title,
@@ -151,9 +158,14 @@ header {
     width: 400px;
   }
 
-  .result-heading {
+  .result-heading-container {
     padding: 4rem 2.5rem 1rem;
     position: static;
+    max-width: 900px;
+  }
+
+  .result-heading {
+    max-width: 100%;
   }
 
   .result-roulette-title,
