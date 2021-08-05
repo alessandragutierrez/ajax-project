@@ -2,7 +2,6 @@
 
 const $viewElements = document.querySelectorAll('.view');
 const $navBar = document.querySelector('.nav-bar');
-const $spin = document.querySelector('.spin-wheel-button');
 const $backButton = document.querySelector('.back-button');
 const $trailerButton = document.querySelector('.trailer-container');
 const $trailerLink = document.querySelector('.trailer-link');
@@ -486,7 +485,7 @@ window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
 $backButton.addEventListener('click', goBack);
 document.addEventListener('keydown', goBackKeyEvent);
-$spin.addEventListener('click', getMovie);
+$filterForm.addEventListener('submit', getMovie);
 document.addEventListener('keydown', getMovieKeyEvent);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);
