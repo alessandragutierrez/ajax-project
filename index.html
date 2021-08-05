@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
-  <link rel="icon" href="images/favicon.ico">
+  <link rel="icon" href="images/icon.png">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -17,8 +17,8 @@
 <body>
   <header>
     <div class="row nav-bar">
-      <div data-view="home" class="home-button nav fas fa-home"></div>
-      <h3 data-view="watchlist" class="watchlist-button nav pt-sans">watchlist</h3>
+      <button data-view="home" class="home-button nav fas fa-home button-reset"></button>
+      <button data-view="watchlist" class="watchlist-button nav pt-sans button-reset">watchlist</button>
     </div>
   </header>
   <main>
@@ -69,7 +69,7 @@
           <option value="10" label="10"></option>
         </datalist>
         <div class="row center spin-wheel-container">
-          <button class="uppercase amiko border-radius spin-wheel-button weight-600">Spin The Wheel</button>
+          <button type="submit" class="uppercase amiko border-radius spin-wheel-button weight-600">Spin The Wheel</button>
         </div>
       </form>
     </div>
@@ -77,7 +77,7 @@
       <div class="result-heading-container">
         <div class="row result-heading">
           <div class="result-column-10 back-button-container">
-            <div class="white fas fa-arrow-left back-button"></div>
+            <button class="white fas fa-arrow-left back-button button-reset"></button>
           </div>
           <div class="result-column-80">
             <h1 class="result-roulette-title white uppercase center amiko">Film Roulette</h1>
@@ -116,11 +116,11 @@
           <button data-view="results" class="uppercase white amiko border-radius spin-again-button">Spin Again</button>
         </div>
         <div class="column-quarter trailer-container">
-          <a target="_blank" rel="noopener noreferrer" class="trailer-link"><button class="uppercase white amiko border-radius trailer-button"><i class="fas fa-play"></i>Trailer</button></a>
+          <a target="_blank" rel="noopener noreferrer" class="trailer-link"><button class="uppercase white amiko border-radius trailer-button"><i class="fas fa-play play-icon"></i>Trailer</button></a>
         </div>
         <div class="column-quarter add-buttons-container result-button">
-          <button class="uppercase white amiko border-radius add-button hidden"><i class="fas fa-plus"></i>Watchlist</button>
-          <button class="uppercase amiko border-radius weight-600 added-button"><i class="fas fa-check-circle"></i>In Watchlist</button>
+          <button class="uppercase white amiko border-radius add-button hidden"><i class="fas fa-plus plus-icon"></i>Watchlist</button>
+          <button class="uppercase amiko border-radius weight-600 added-button"><i class="fas fa-check-circle check-circle-icon"></i>In Watchlist</button>
         </div>
       </div>
     </div>

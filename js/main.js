@@ -2,7 +2,6 @@
 
 const $viewElements = document.querySelectorAll('.view');
 const $navBar = document.querySelector('.nav-bar');
-const $spin = document.querySelector('.spin-wheel-button');
 const $backButton = document.querySelector('.back-button');
 const $trailerButton = document.querySelector('.trailer-container');
 const $trailerLink = document.querySelector('.trailer-link');
@@ -124,7 +123,7 @@ const saveCurrentMovie = event => {
 };
 
 const handleWatchlistClick = event => {
-  if (event.target.classList.contains('fa-trash') !== true) {
+  if (event.target.classList.contains('trash-icon') !== true) {
     return;
   }
   targetMovie = event.target.closest('div.movie');
@@ -264,8 +263,8 @@ const renderMovie = (movie, isResult, withDelete) => {
   }
 
   if (withDelete) {
-    const $deleteIcon = document.createElement('span');
-    $deleteIcon.className = 'fas fa-trash';
+    const $deleteIcon = document.createElement('button');
+    $deleteIcon.className = 'fas fa-trash trash-icon button-reset';
     $movieTitle.appendChild($deleteIcon);
   }
 
@@ -486,7 +485,7 @@ window.addEventListener('DOMContentLoaded', handleLoad);
 $navBar.addEventListener('click', handleNavClick);
 $backButton.addEventListener('click', goBack);
 document.addEventListener('keydown', goBackKeyEvent);
-$spin.addEventListener('click', getMovie);
+$filterForm.addEventListener('submit', getMovie);
 document.addEventListener('keydown', getMovieKeyEvent);
 $spinAgain.addEventListener('click', getMoreMovies);
 $addButton.addEventListener('click', saveCurrentMovie);

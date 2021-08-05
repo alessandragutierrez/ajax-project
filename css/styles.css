@@ -2,6 +2,8 @@ body {
   background-color: black;
 }
 
+/* homepage */
+
 header {
   background-color: black;
   position: fixed;
@@ -23,13 +25,14 @@ header {
 }
 
 .home-button {
-  font-size: 24px;
+  font-size: 1.5rem;
   padding-bottom: 0.6rem;
 }
 
 .watchlist-button {
   font-variant: small-caps;
-  font-size: 28px;
+  font-size: 1.75rem;
+  font-weight: 600;
 }
 
 .highlight {
@@ -47,6 +50,8 @@ main {
 .home-roulette-title {
   margin: 1rem 0;
 }
+
+/* result page and watchlist */
 
 .result-heading-container {
   background-color: black;
@@ -67,7 +72,7 @@ main {
 .added-button {
   border: none;
   font-size: 1.3rem;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   margin-bottom: 1.5rem;
 }
 
@@ -85,25 +90,25 @@ main {
   background-color: transparent;
 }
 
-.fa-play,
-.fa-plus {
+.play-icon,
+.plus-icon {
   color: white;
-  padding-right: 10px;
+  padding-right: 0.6rem;
 }
 
-.fa-play {
-  font-size: 16px;
+.play-icon {
+  font-size: 1rem;
 }
 
-.fa-check-circle {
-  padding-right: 7px;
+.check-circle-icon {
+  padding-right: 0.4rem;
 }
 
-.fa-trash {
-  font-size: 20px;
+.trash-icon {
+  font-size: 1.25rem;
   position: relative;
-  left: 12px;
-  bottom: 4px;
+  left: 0.75rem;
+  bottom: 0.25rem;
 }
 
 .delete-modal {
@@ -141,8 +146,8 @@ main {
 .cancel-button,
 .delete-button {
   border: none;
-  font-size: 18px;
-  padding: 8px 20px;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.25rem;
   letter-spacing: 1px;
 }
 
@@ -155,9 +160,11 @@ main {
 }
 
 .watchlist-empty {
-  font-size: 18px;
+  font-size: 1.1rem;
   padding: 3rem 0;
 }
+
+/* general styling */
 
 .white {
   color: white;
@@ -194,33 +201,38 @@ main {
 }
 
 .padding-bottom {
-  padding-bottom: 5px;
+  padding-bottom: 0.3rem;
+}
+
+.button-reset {
+  background-color: transparent;
+  border: none;
 }
 
 .no-results {
-  padding-inline: 35px;
-  margin-top: 50px;
+  padding-inline: 2.2rem;
+  margin-top: 3.1rem;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .try-again {
-  margin-top: 30px;
+  margin-top: 1.9rem;
   width: fit-content;
   background-color: black;
   border: none;
   font-size: 1rem;
-  padding: 8px 20px;
+  padding: 0.5rem 1.25rem;
 }
 
 .network-error {
-  margin-top: 50px;
-  padding-inline: 35px;
+  margin-top: 3.1rem;
+  padding-inline: 2.2rem;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 
 .home-button:hover,
@@ -231,7 +243,7 @@ main {
 .trailer-button:hover,
 .add-button:hover,
 .added-button:hover,
-.fa-trash:hover,
+.trash-icon:hover,
 .cancel-button:hover,
 .delete-button:hover,
 .try-again:hover {
@@ -274,8 +286,8 @@ main {
 
 .loading-text {
   font-variant: small-caps;
-  font-size: 18px;
-  margin-top: 10px;
+  font-size: 1.1rem;
+  margin-top: 0.6rem;
 }
 
 .lds-default {
