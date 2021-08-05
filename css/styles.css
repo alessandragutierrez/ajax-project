@@ -30,6 +30,7 @@ header {
 .watchlist-button {
   font-variant: small-caps;
   font-size: 28px;
+  font-weight: 600;
 }
 
 .highlight {
@@ -99,7 +100,7 @@ main {
   padding-right: 7px;
 }
 
-.fa-trash {
+.delete-icon {
   font-size: 20px;
   position: relative;
   left: 12px;
@@ -195,6 +196,11 @@ main {
 
 .padding-bottom {
   padding-bottom: 5px;
+}
+
+.button-reset {
+  background-color: transparent;
+  border: none;
 }
 
 .no-results {

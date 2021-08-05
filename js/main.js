@@ -264,8 +264,8 @@ const renderMovie = (movie, isResult, withDelete) => {
   }
 
   if (withDelete) {
-    const $deleteIcon = document.createElement('span');
-    $deleteIcon.className = 'fas fa-trash';
+    const $deleteIcon = document.createElement('button');
+    $deleteIcon.className = 'fas fa-trash delete-icon button-reset';
     $movieTitle.appendChild($deleteIcon);
   }
 
