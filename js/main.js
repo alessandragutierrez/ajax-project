@@ -124,7 +124,7 @@ const saveCurrentMovie = event => {
 };
 
 const handleWatchlistClick = event => {
-  if (event.target.classList.contains('fa-trash') !== true) {
+  if (event.target.classList.contains('trash-icon') !== true) {
     return;
   }
   targetMovie = event.target.closest('div.movie');
@@ -265,7 +265,7 @@ const renderMovie = (movie, isResult, withDelete) => {
 
   if (withDelete) {
     const $deleteIcon = document.createElement('button');
-    $deleteIcon.className = 'fas fa-trash delete-icon button-reset';
+    $deleteIcon.className = 'fas fa-trash trash-icon button-reset';
     $movieTitle.appendChild($deleteIcon);
   }
 
