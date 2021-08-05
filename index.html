@@ -82,14 +82,35 @@
           <h1 class="result-roulette-title white uppercase center amiko">Film Roulette</h1>
         </div>
       </div>
+      <div class="result-loader">
+        <div class="lds-default">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="loading-text">loading...</div>
+      </div>
+      <div class="no-results hidden">
+        <div>Uh oh! There are no films that match your search criteria.</div>
+        <div class="try-again uppercase white amiko border-radius">Try searching again!</div>
+      </div>
       <div class="row center container movie-container">
-        <div class="column-quarter spin-again-container">
+        <div class="column-quarter spin-again-container result-button hidden">
           <button data-view="results" class="uppercase white amiko border-radius spin-again-button">Spin Again</button>
         </div>
-        <div class="column-quarter">
+        <div class="column-quarter result-button hidden">
           <a target="_blank" rel="noopener noreferrer" class="trailer-link"><button class="uppercase white amiko border-radius trailer-button"><i class="fas fa-play"></i>Trailer</button></a>
         </div>
-        <div class="column-quarter add-buttons-container">
+        <div class="column-quarter add-buttons-container result-button hidden">
           <button class="uppercase white amiko border-radius add-button hidden"><i class="fas fa-plus"></i>Watchlist</button>
           <button class="uppercase amiko border-radius weight-600 added-button"><i class="fas fa-check-circle"></i>In Watchlist</button>
         </div>
