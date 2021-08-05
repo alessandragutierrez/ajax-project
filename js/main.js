@@ -4,6 +4,7 @@ const $viewElements = document.querySelectorAll('.view');
 const $navBar = document.querySelector('.nav-bar');
 const $spin = document.querySelector('.spin-wheel-button');
 const $backButton = document.querySelector('.back-button');
+const $trailerButton = document.querySelector('.trailer-container');
 const $trailerLink = document.querySelector('.trailer-link');
 const $spinAgain = document.querySelector('.spin-again-button');
 const $addButton = document.querySelector('.add-button');
@@ -15,6 +16,11 @@ const $watchlistContainer = document.querySelector('.watchlist-container');
 const $watchlistEmpty = document.querySelector('.watchlist-empty');
 const $watchlistMovies = $watchlistContainer.getElementsByClassName('movie');
 const $deleteModal = document.querySelector('.delete-modal');
+const $resultLoader = document.querySelector('.result-loader');
+const $resultButtons = document.querySelectorAll('.result-button');
+const $noResults = document.querySelector('.no-results');
+const $tryAgain = document.querySelector('.try-again');
+const $networkError = document.querySelector('.network-error');
 const formValues = {};
 let movieResultArray = [];
 let alreadySeen = [];
@@ -36,6 +42,7 @@ const handleLoad = event => {
   highlight(data.view);
   filterFormAnimation();
 };
+
 const handleNavClick = event => {
   if (event.target.classList.contains('nav') !== true) {
     return;
@@ -47,6 +54,7 @@ const handleNavClick = event => {
   }
   triggerNavViewsAnimations();
 };
+
 const goBack = event => {
   swapViews('home');
   highlight('home');
@@ -54,13 +62,16 @@ const goBack = event => {
   $filterForm.elements.genre.value = formValues.filterGenreId;
   $filterForm.elements.rating.value = formValues.filterRatingMin;
   updateLabel(event);
+  clearResult();
 };
+
 const goBackKeyEvent = event => {
   if (event.key !== 'Backspace' || data.view !== 'result') {
     return;
   }
   goBack(event);
 };
+
 const getMovieKeyEvent = event => {
   if (event.key !== 'Enter') {
     return;
@@ -71,8 +82,13 @@ const getMovieKeyEvent = event => {
     getMoreMovies(event);
   }
 };
+
 const getMovie = event => {
   event.preventDefault();
+  hideNoResultsMessage();
+  hideNetworkError();
+  hideResultButtons();
+  hideTrailerButton();
   alreadySeen = [];
   resetAddButton();
   saveFormValues();
@@ -82,6 +98,7 @@ const getMovie = event => {
   swapViews('result');
   $navBar.firstElementChild.classList.remove('highlight');
 };
+
 const getMoreMovies = event => {
   if (!movieResultArray.length > 0) {
     pageNumber++;
@@ -92,8 +109,10 @@ const getMoreMovies = event => {
     alreadySeen = [];
   }
   resetAddButton();
+  hideTrailerButton();
   requestMovie();
 };
+
 const saveCurrentMovie = event => {
   data.entries.push(currentMovie);
   const newEntry = renderMovie(currentMovie, false, true);
@@ -103,6 +122,7 @@ const saveCurrentMovie = event => {
   $addButton.classList.add('hidden');
   $addedButton.classList.remove('hidden');
 };
+
 const handleWatchlistClick = event => {
   if (event.target.classList.contains('fa-trash') !== true) {
     return;
@@ -110,6 +130,7 @@ const handleWatchlistClick = event => {
   targetMovie = event.target.closest('div.movie');
   openModal();
 };
+
 const handleModalClick = event => {
   if (event.target.classList.contains('delete-modal') === true ||
     event.target.classList.contains('cancel-button') === true) {
@@ -118,11 +139,13 @@ const handleModalClick = event => {
     deleteEntry(targetMovie);
   }
 };
+
 const updateLabel = event => {
   $ratingLabel.textContent = 'Rating ' + ' ( ' + $filterForm.elements.rating.value + ' & up )';
 };
 
 const requestMovie = () => {
+  showResultLoader();
   const xhr = new XMLHttpRequest();
   let requestUrl = '';
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
@@ -139,6 +162,11 @@ const requestMovie = () => {
   xhr.addEventListener('load', () => {
     totalPages = xhr.response.total_pages;
     movieResultArray = xhr.response.results;
+    if (movieResultArray.length === 0) {
+      hideResultLoader();
+      showNoResultsMessage();
+      return;
+    }
     if (alreadySeen.length > 0) {
       for (let i = 0; i < alreadySeen.length; i++) {
         for (let j = 0; j < movieResultArray.length; j++) {
@@ -159,8 +187,13 @@ const requestMovie = () => {
     checkIfAdded();
     requestTrailer();
   });
+  xhr.addEventListener('error', () => {
+    hideResultLoader();
+    showNetworkError();
+  });
   xhr.send();
 };
+
 const requestTrailer = () => {
   const xhr = new XMLHttpRequest();
   const requestURL = 'https://api.themoviedb.org/3/movie/' + data.currentMovieID + '/videos?api_key=a5e47a4e0a5f7197c6934d0fb4135ec4&language=en-US';
@@ -168,11 +201,10 @@ const requestTrailer = () => {
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
     if (!xhr.response.results.length > 0) {
-      $trailerLink.classList.add('hidden');
       return;
     }
     const videoData = xhr.response.results[0];
-    $trailerLink.classList.remove('hidden');
+    showTrailerButton();
     $trailerLink.setAttribute('href', 'https://www.youtube.com/watch?v=' + videoData.key);
   });
   xhr.send();
@@ -227,6 +259,8 @@ const renderMovie = (movie, isResult, withDelete) => {
 
   if (isResult) {
     $movie.classList.add('movie-result');
+    hideResultLoader();
+    showResultButtons();
   }
 
   if (withDelete) {
@@ -249,8 +283,10 @@ const renderMovie = (movie, isResult, withDelete) => {
   $genreDiv.appendChild($genreLabel);
   $genreDiv.appendChild($genreContent);
   $movieDesc.appendChild($plotSummary);
+
   return $movie;
 };
+
 const storeCurrentMovie = movie => {
   currentMovie.id = movie.id;
   currentMovie.poster_path = movie.poster_path;
@@ -261,6 +297,7 @@ const storeCurrentMovie = movie => {
   currentMovie.overview = movie.overview;
   data.currentMovieID = movie.id;
 };
+
 const findYear = movie => {
   let year = '';
   for (let i = 0; i < 4; i++) {
@@ -268,6 +305,7 @@ const findYear = movie => {
   }
   return year;
 };
+
 const findGenre = movie => {
   let movieGenres = '';
   for (let i = 0; i < movie.length - 1; i++) {
@@ -293,6 +331,7 @@ const saveFormValues = () => {
   formValues.filterRatingMin = $filterForm.elements.rating.value;
   return formValues;
 };
+
 const clearForm = () => {
   $filterForm.elements.year.value = '';
   $filterForm.elements.genre.value = '';
@@ -308,6 +347,7 @@ const checkIfAdded = () => {
     }
   }
 };
+
 const resetAddButton = () => {
   $addButton.classList.remove('hidden');
   $addedButton.classList.add('hidden');
@@ -319,9 +359,11 @@ const createWatchlistEntries = () => {
     $watchlistContainer.appendChild(newEntry);
   }
 };
+
 const openModal = () => {
   $deleteModal.classList.remove('hidden');
 };
+
 const deleteEntry = targetMovie => {
   let i;
   if (data.view === 'watchlist') {
@@ -357,6 +399,7 @@ const highlight = target => {
     }
   }
 };
+
 const swapViews = view => {
   for (let i = 0; i < $viewElements.length; i++) {
     if ($viewElements[i].getAttribute('data-view') !== view) {
@@ -367,14 +410,60 @@ const swapViews = view => {
     }
   }
 };
+
 const hideWatchlistEmpty = () => {
   $watchlistEmpty.classList.add('hidden');
 };
+
 const clearResult = () => {
   if ($movieResultContainer.firstElementChild.classList.contains('movie') !== true) {
     return;
   }
   $movieResultContainer.firstElementChild.remove();
+};
+
+const showResultLoader = () => {
+  $resultLoader.classList.remove('hidden');
+};
+
+const hideResultLoader = () => {
+  $resultLoader.classList.add('hidden');
+};
+
+const showResultButtons = () => {
+  for (let i = 0; i < $resultButtons.length; i++) {
+    $resultButtons[i].classList.remove('hidden');
+  }
+};
+
+const hideResultButtons = () => {
+  for (let i = 0; i < $resultButtons.length; i++) {
+    $resultButtons[i].classList.add('hidden');
+  }
+};
+
+const showTrailerButton = () => {
+  $trailerButton.classList.remove('hidden');
+};
+
+const hideTrailerButton = () => {
+  $trailerButton.classList.add('hidden');
+};
+
+const showNoResultsMessage = () => {
+  $noResults.classList.remove('hidden');
+};
+
+const hideNoResultsMessage = () => {
+  $noResults.classList.add('hidden');
+};
+
+const showNetworkError = () => {
+  $networkError.classList.remove('hidden');
+};
+
+const hideNetworkError = () => {
+  $networkError.classList.add('hidden');
 };
 
 const triggerNavViewsAnimations = () => {
@@ -405,3 +494,4 @@ $addedButton.addEventListener('click', openModal);
 $watchlistContainer.addEventListener('click', handleWatchlistClick);
 $deleteModal.addEventListener('click', handleModalClick);
 $filterForm.elements.rating.addEventListener('input', updateLabel);
+$tryAgain.addEventListener('click', goBack);
