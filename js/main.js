@@ -4,6 +4,7 @@ const $viewElements = document.querySelectorAll('.view');
 const $navBar = document.querySelector('.nav-bar');
 const $spin = document.querySelector('.spin-wheel-button');
 const $backButton = document.querySelector('.back-button');
+const $trailerButton = document.querySelector('.trailer-container');
 const $trailerLink = document.querySelector('.trailer-link');
 const $spinAgain = document.querySelector('.spin-again-button');
 const $addButton = document.querySelector('.add-button');
@@ -19,6 +20,7 @@ const $resultLoader = document.querySelector('.result-loader');
 const $resultButtons = document.querySelectorAll('.result-button');
 const $noResults = document.querySelector('.no-results');
 const $tryAgain = document.querySelector('.try-again');
+const $networkError = document.querySelector('.network-error');
 const formValues = {};
 let movieResultArray = [];
 let alreadySeen = [];
@@ -60,6 +62,7 @@ const goBack = event => {
   $filterForm.elements.genre.value = formValues.filterGenreId;
   $filterForm.elements.rating.value = formValues.filterRatingMin;
   updateLabel(event);
+  clearResult();
 };
 
 const goBackKeyEvent = event => {
@@ -82,6 +85,10 @@ const getMovieKeyEvent = event => {
 
 const getMovie = event => {
   event.preventDefault();
+  hideNoResultsMessage();
+  hideNetworkError();
+  hideResultButtons();
+  hideTrailerButton();
   alreadySeen = [];
   resetAddButton();
   saveFormValues();
@@ -102,6 +109,7 @@ const getMoreMovies = event => {
     alreadySeen = [];
   }
   resetAddButton();
+  hideTrailerButton();
   requestMovie();
 };
 
@@ -137,6 +145,7 @@ const updateLabel = event => {
 };
 
 const requestMovie = () => {
+  showResultLoader();
   const xhr = new XMLHttpRequest();
   let requestUrl = '';
   if (formValues.filterYear !== '' && formValues.filterGenre !== '') {
@@ -178,6 +187,10 @@ const requestMovie = () => {
     checkIfAdded();
     requestTrailer();
   });
+  xhr.addEventListener('error', () => {
+    hideResultLoader();
+    showNetworkError();
+  });
   xhr.send();
 };
 
@@ -188,11 +201,10 @@ const requestTrailer = () => {
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
     if (!xhr.response.results.length > 0) {
-      $trailerLink.classList.add('hidden');
       return;
     }
     const videoData = xhr.response.results[0];
-    $trailerLink.classList.remove('hidden');
+    showTrailerButton();
     $trailerLink.setAttribute('href', 'https://www.youtube.com/watch?v=' + videoData.key);
   });
   xhr.send();
@@ -430,8 +442,28 @@ const hideResultButtons = () => {
   }
 };
 
+const showTrailerButton = () => {
+  $trailerButton.classList.remove('hidden');
+};
+
+const hideTrailerButton = () => {
+  $trailerButton.classList.add('hidden');
+};
+
 const showNoResultsMessage = () => {
   $noResults.classList.remove('hidden');
+};
+
+const hideNoResultsMessage = () => {
+  $noResults.classList.add('hidden');
+};
+
+const showNetworkError = () => {
+  $networkError.classList.remove('hidden');
+};
+
+const hideNetworkError = () => {
+  $networkError.classList.add('hidden');
 };
 
 const triggerNavViewsAnimations = () => {
