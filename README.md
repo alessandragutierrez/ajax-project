@@ -10,7 +10,8 @@ Within building Film Roulette, I employed tools such as...
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__XMLHttpRequest__ to retrieve data from a [public film __API__](https://developers.themoviedb.org/3/getting-started/introduction).  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Local Storage__ and __JSON__ to serialize/deserialize a data model for the watchlist.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Mobile-First Design__ through execution of __media-queries__, __Flexbox__, and __CSS Grid Layout__.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__SPA__(Single-page application) by incorporating data views.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__SPA__(Single-page application) by incorporating data views.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__GreenSock__ animations for subtle visual effects.
 
 ## Live Demo
 [Click here to check out the live deployment of Film Roulette!](https://alessandragutierrez.github.io/film-roulette/)
