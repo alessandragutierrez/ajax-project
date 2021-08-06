@@ -1,5 +1,4 @@
 # film-roulette
-
 A web application to discover films.
 
 The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of an app to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
@@ -11,7 +10,6 @@ Within building Film Roulette, I employed tools such as...
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__SPA__(Single-page application) by incorporating data views.
 
 ## Live Demo
-
 [Click here to check out the live deployment of Film Roulette!](https://alessandragutierrez.github.io/film-roulette/)
 
 ## Technologies Used
@@ -28,6 +26,10 @@ Within building Film Roulette, I employed tools such as...
 - User can add film to watchlist.
 - User can view watchlist.
 - User can delete film from watchlist.
+
+## Preview
+![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128444782-3ff68db5-2b33-4aa1-911c-f316df00eb83.gif)
+![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128444766-201d6b6e-a49f-4a00-b786-9435bbdec3d7.gif)
 
 ### Potential Stretch Features
 - User can search for film by title.
