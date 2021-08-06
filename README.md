@@ -28,8 +28,10 @@ Within building Film Roulette, I employed tools such as...
 - User can delete film from watchlist.
 
 ## Preview
-![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128444782-3ff68db5-2b33-4aa1-911c-f316df00eb83.gif)
-![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128444766-201d6b6e-a49f-4a00-b786-9435bbdec3d7.gif)
+![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128445625-8b2b376b-902b-4dc0-b55a-e09186b5aae5.gif) 
+  
+    
+![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128445637-cec8171b-4d34-4b44-89c7-291c6471d1e0.gif)
 
 ### Potential Stretch Features
 - User can search for film by title.
