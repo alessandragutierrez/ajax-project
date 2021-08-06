@@ -1,6 +1,9 @@
 # film-roulette
 A web application to discover films.
 
+![app-preview](https://user-images.githubusercontent.com/82188718/128579926-d9fbad09-6abc-4d49-9426-dda2125fd6ba.gif)
+
+## Motive
 The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of an app to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
 
 Within building Film Roulette, I employed tools such as...  
@@ -18,6 +21,8 @@ Within building Film Roulette, I employed tools such as...
 - __JavaScript__
 
 ## Features
+
+#### Current Features
 - User can discover a film.
 - User can filter results by release year.
 - User can filter results by genre.
@@ -27,13 +32,7 @@ Within building Film Roulette, I employed tools such as...
 - User can view watchlist.
 - User can delete film from watchlist.
 
-## Preview
-![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128445625-8b2b376b-902b-4dc0-b55a-e09186b5aae5.gif) 
-  
-    
-![Large GIF (498x816)](https://user-images.githubusercontent.com/82188718/128445637-cec8171b-4d34-4b44-89c7-291c6471d1e0.gif)
-
-### Potential Stretch Features
+#### Potential Stretch Feature(s)
 - User can search for film by title.
 - User can favorite a film.
 - User can view favorite films.
