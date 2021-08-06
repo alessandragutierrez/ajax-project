@@ -2,7 +2,7 @@
 
 A web application to discover films.
 
-The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of a tool to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
+The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of an app to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
 
 Within building Film Roulette, I employed tools such as...  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__AJAX__ to request data from a [public film __API__](https://developers.themoviedb.org/3/getting-started/introduction).  
