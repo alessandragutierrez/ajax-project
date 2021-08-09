@@ -8,7 +8,7 @@ The inspiration to build this project stemmed from too much time spent mulling o
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Within building Film Roulette, I employed tools such as...   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Figma__ to design a multi-page web app that accounted for both mobile and desktop layout.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Asychronous JavaScript__ and __XML__ to request data from a __RESTful API__.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Asynchronous JavaScript__ and __XML__ to request data from a __RESTful API__.   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Local Storage__ and __JSON__ to serialize/deserialize a data model for the watchlist.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Mobile-First Design__ through execution of __media-queries__, __Flexbox__, and __CSS Grid Layout__.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __SPA__(Single-page application) by incorporating data views.  
