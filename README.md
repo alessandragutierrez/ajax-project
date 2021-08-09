@@ -38,7 +38,7 @@ Within building Film Roulette, I employed tools such as...
 - User can favorite a film.
 - User can view favorite films.
 
-### Getting Started
+## Getting Started
 1. go to [the repository's GitHub homepage](https://github.com/alessandragutierrez/film-roulette)
 2. click the __Code__ button
 3. copy the SSH URL
