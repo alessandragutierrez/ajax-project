@@ -6,12 +6,12 @@ A web application to discover films.
 ## Motive
 The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of an app to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
 
-Within building Film Roulette, I employed tools such as...  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__XMLHttpRequest__ to retrieve data from a [public film __API__](https://developers.themoviedb.org/3/getting-started/introduction).  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Local Storage__ and __JSON__ to serialize/deserialize a data model for the watchlist.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Mobile-First Design__ through execution of __media-queries__, __Flexbox__, and __CSS Grid Layout__.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__SPA__(Single-page application) by incorporating data views.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__GreenSock__ animations for subtle visual effects.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Within building Film Roulette, I employed tools such as...   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Figma__ to design a multi-page web app that accounted for both mobile and desktop layout.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Asychronous JavaScript__ and __XML__ to request data from a __RESTful API__.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Local Storage__ and __JSON__ to serialize/deserialize a data model for the watchlist.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Mobile-First Design__ through execution of __media-queries__, __Flexbox__, and __CSS Grid Layout__.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __SPA__(Single-page application) by incorporating data views.  
 
 ## Live Demo
 [Click here to check out the live deployment of Film Roulette!](https://alessandragutierrez.github.io/film-roulette/)
@@ -19,7 +19,9 @@ Within building Film Roulette, I employed tools such as...
 ## Technologies Used
 - __HTML5__
 - __CSS3__
-- __JavaScript__
+- __JavaScript ES6__
+- __XMLHTTPRequest__
+- __GSAP (GreenSock Animation Platform)__
 
 ## Features
 
