@@ -1,4 +1,4 @@
-# film-roulette
+# Film Roulette
 A web application to discover films.
 
 ![app-preview](https://user-images.githubusercontent.com/82188718/128579926-d9fbad09-6abc-4d49-9426-dda2125fd6ba.gif)
