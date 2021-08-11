@@ -41,12 +41,9 @@ The inspiration to build this project stemmed from too much time spent mulling o
 - User can view favorite films.
 
 ## Getting Started
-1. go to [the repository's GitHub homepage](https://github.com/alessandragutierrez/film-roulette)
-2. click the __Code__ button
-3. copy the SSH URL
-4. in your terminal, clone the repository
+1. clone the repository
 ```javascript
-$ git clone <paste the url without any angle brackets>
+git clone git@github.com:alessandragutierrez/film-roulette.git
+cd film-roulette
 ```
-5. cd into directory
-6. open __index.html__ in browser
+2. open __index.html__ in browser
