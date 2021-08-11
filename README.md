@@ -46,4 +46,4 @@ The inspiration to build this project stemmed from too much time spent mulling o
 git clone git@github.com:alessandragutierrez/film-roulette.git
 cd film-roulette
 ```
-2. Open __index.html__ in the browser.
+2. Open __index.html__ in your browser.
