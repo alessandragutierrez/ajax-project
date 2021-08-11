@@ -41,9 +41,9 @@ The inspiration to build this project stemmed from too much time spent mulling o
 - User can view favorite films.
 
 ## Getting Started
-1. clone the repository
+1. Clone the repository.
 ```javascript
 git clone git@github.com:alessandragutierrez/film-roulette.git
 cd film-roulette
 ```
-2. open __index.html__ in browser
+2. Open __index.html__ in browser.
