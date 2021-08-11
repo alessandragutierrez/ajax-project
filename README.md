@@ -7,7 +7,7 @@ A web application to discover films.
 The inspiration to build this project stemmed from too much time spent mulling over what film I wanted to watch. In need of an app to help me decide, I created Film Roulette! It includes a form to help filter search results, delivers all necessary information about each film as well as a link to view the trailer, and a personal watchlist!
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Within building Film Roulette, I employed tools such as...   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Figma__ to design a multi-page web app that accounted for both mobile and desktop layout.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Figma__ to design a multi-page web app that accounted for both mobile and desktop layouts.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Asynchronous JavaScript__ and __XML__ to request data from a __RESTful API__.   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Local Storage__ and __JSON__ to serialize/deserialize a data model for the watchlist.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ∙ __Mobile-First Design__ through execution of __media-queries__, __Flexbox__, and __CSS Grid Layout__.  
