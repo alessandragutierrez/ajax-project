@@ -42,7 +42,7 @@ The inspiration to build this project stemmed from too much time spent mulling o
 
 ## Getting Started
 1. Clone the repository.
-```javascript
+```bash
 git clone git@github.com:alessandragutierrez/film-roulette.git
 cd film-roulette
 ```
